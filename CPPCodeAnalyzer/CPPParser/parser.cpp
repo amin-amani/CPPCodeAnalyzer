@@ -44,6 +44,7 @@ if(input.isEmpty())return result;
 
 
 QVector<int> braceStarts,braceEnds;
+QVector<QPoint> posPoints;
 int index=0;
 while (index>=0) {
 index=input.indexOf("{",index);
@@ -51,24 +52,43 @@ if(index<0)break;
 braceStarts.append(index);
 index++;
 }
-
+//qDebug()<<"input="<<input;
 index=0;
 while (index>=0) {
 index=input.indexOf("}",index);
 if(index<0)break;
+
 braceEnds.append(index);
 index++;
 }
 
-for (int i=0;i<braceStarts.count();i++) {
-   result.append(input.mid(braceStarts[i]+1,braceEnds[i]-braceStarts[i]-1));
+for (int j=0;j<braceStarts.count();j++) {
+
+
+int currentStartBrace=braceStarts[braceStarts.count()-j-1];
+//qDebug()<<"bracestart["<<j<<"]="<<braceStarts[j];
+for (int i=0;i<braceEnds.count();i++)
+{
+//qDebug()<<"braceEnd["<<i<<"]="<<braceEnds[i];
+    if(currentStartBrace<braceEnds[i])
+    {
+        QPoint temp;
+
+        temp.setX(currentStartBrace);
+        temp.setY(braceEnds[i]);
+        posPoints.append(temp);
+        braceEnds[i]=-1;
+        break;
+    }
 }
-//while (true) {
-//    int startIndex=input.indexOf("{",lastIndex++);
-//    int endIndex=input.indexOf("}",startIndex+1);
-//    result.append(input.mid(startIndex+1,endIndex-startIndex-1));
-//    if(startIndex<0)break;
-//}
+}
+
+
+for (int i=0;i<posPoints.count();i++) {
+    QString str=input.mid(posPoints[i].x(),posPoints[i].y()-posPoints[i].x()+1);
+   // qDebug()<<"answer["<<i<<"]="<<str;
+   result.append(str);
+}
 
 return  result;
 }

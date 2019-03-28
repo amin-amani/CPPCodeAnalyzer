@@ -16,22 +16,16 @@ public:
 
     void CheckIfEmptyStringReturnHasNoFunction();
     void CheckIfNullReturnHasNoFunction();
-
-
 private slots:
     void initTestCase();
     void cleanupTestCase();
-    void test_case1();
-
     void test_SimpleMainAndInclude();
     void test_BracesParsWithEmptyAndNull();
     void test_BracesPraseSimplest();
-     void test_BracesPraseMultiple();
-
-     void test_BracesPraseNested();
+    void test_BracesPraseMultiple();
+    void test_BracesPraseNested();
 };
 //======================================================================
-
 ParsTest::ParsTest()
 {
 
@@ -40,11 +34,9 @@ ParsTest::ParsTest()
 //======================================================================
 void ParsTest::CheckIfNullReturnHasNoFunction()
 {
-
 QStringList result=parser.GetFunctionName();
 QVERIFY2(result.length()==0,"Null doesnt return empty");
 }
-
 //======================================================================
 void ParsTest::CheckIfEmptyStringReturnHasNoFunction()
 {
@@ -60,7 +52,7 @@ parser.SetFileName("../../TestModels/SimpleMain.cpp");
 QStringList result=parser.GetFunctionName();
 QVERIFY2(result.length()==1,"function not found");
 if(result.length()<1)return;
-qDebug()<<result.at(0);
+//qDebug()<<result.at(0);
 QVERIFY2(result.at(0)=="main","invalid name");
 }
 
@@ -70,27 +62,16 @@ ParsTest::~ParsTest()
 
 }
 //======================================================================
-
 void ParsTest::initTestCase()
 {
 
 }
 //======================================================================
-
 void ParsTest::cleanupTestCase()
 {
 
 }
 //======================================================================
-
-void ParsTest::test_case1()
-{
-//CheckIfNullReturnHasNoFunction();
-//CheckIfEmptyStringReturnHasNoFunction();
-//test_CheckSimpleMainAndInclude();
-
-}
-
 void ParsTest::test_BracesParsWithEmptyAndNull()
 {
 QStringList bracesList= parser.GetBraces("");
@@ -99,26 +80,30 @@ QVERIFY2(bracesList.count()==0,"empty return must be no braces");
  QVERIFY2(bracesList.count()==0,"null return must be no braces");
 
 }
-
+//======================================================================
 void ParsTest::test_BracesPraseSimplest()
 {
     QStringList bracesList= parser.GetBraces("{in brace}");
-qDebug()<<"==>"<<bracesList[0];
-  QVERIFY2(bracesList[0]=="in brace","null return must be no braces");
+
+  QVERIFY2(bracesList.count()==1,"no answer");
+
+//  if(bracesList.count()>0)qDebug()<<"==>"<<bracesList[0];
+  QVERIFY2(bracesList[0]=="{in brace}","null return must be no braces");
 }
+//======================================================================
 void ParsTest::test_BracesPraseMultiple()
 {
     QStringList bracesList= parser.GetBraces("{in brace1}\n{in brace2}");
+    QVERIFY2(bracesList[0]=="{in brace2}","not brace2");
+    QVERIFY2(bracesList[1]=="{in brace1}","not brace1");
 
-  QVERIFY2(bracesList[0]=="in brace1","not brace1");
-  QVERIFY2(bracesList[1]=="in brace2","not brace2");
 }
+//======================================================================
 void ParsTest::test_BracesPraseNested()
 {
     QStringList bracesList= parser.GetBraces("{in brace1{in brace2}}");
-qDebug()<<bracesList[0]<<bracesList[1];
-  QVERIFY2(bracesList[0]=="in brace1{in brace2}","not brace1");
-  QVERIFY2(bracesList[1]=="in brace2","not brace2");
+  QVERIFY2(bracesList[1]=="{in brace1{in brace2}}","outside brace error");
+  QVERIFY2(bracesList[0]=="{in brace2}","inside brace error");
 }
 //======================================================================
 

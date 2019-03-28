@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QRegExp>
 #include <QFile>
+#include <QPoint>
 class Parser
 {
     QString _fileName;
