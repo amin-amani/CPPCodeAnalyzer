@@ -129,25 +129,18 @@ QStringList Parser::GetBlockComments()
   QString comment="";
   for (int i=0;i<_fileContent.count()-1;i++)
   {
-
-
       if(_fileContent[i]=='/' && _fileContent[i+1]=='*' && startInex<0)startInex=i;
       if(_fileContent[i]=='*' && _fileContent[i+1]=='/' && startInex>=0 && comment.length()>3)
       {
-    comment=comment+_fileContent[i]+_fileContent[i+1];
+        comment=comment+_fileContent[i]+_fileContent[i+1];
         result.append(comment);
         startInex=-1;
         comment="";
-
       }
       if(startInex>0)comment+=_fileContent[i];
-
   }
   return  result;
-
 }
-
-
 //===============================================================================
 QStringList Parser::GetFunctionNames()
 {
