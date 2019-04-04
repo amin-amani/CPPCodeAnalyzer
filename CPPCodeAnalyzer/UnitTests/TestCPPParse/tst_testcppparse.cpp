@@ -7,22 +7,24 @@ class TestCPPParse : public QObject
 {
     Q_OBJECT
 
-    QStringList GetTestFunctionResultsFromFile(QString fileName);
+    QStringList GetTestExpectedResultsFromFile(QString fileName);
 public:
     TestCPPParse();
     ~TestCPPParse();
+
+    void TestFile(QString fileName);
+
+
 
 private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_case1();
-
-    void CheckIfNullReturnHasNoFunction();
-    void CheckIfEmptyStringReturnHasNoFunction();
+    void test_IfNullReturnHasNoFunction();
+    void test_EmptyStringReturnHasNoFunction();
     void test_MainAndFunction();
     void test_SimpleMainAndInclude();
     void test_MainAndFunctionAnd2Includes();
-
     void test_BracesParsWithEmptyAndNull();
     void test_BracesPraseSimplest();
     void test_BracesPraseMultiple();
@@ -30,104 +32,155 @@ private slots:
     void test_GetParentBraces();
 
     void test_GetFunctionsWithComments();
-};
+    void test_GetFunctionsWithDefinTags();
+    void test_FilesAutomatically();
 
+};
+//======================================================================
 TestCPPParse::TestCPPParse()
 {
 
 }
-
+//======================================================================
 TestCPPParse::~TestCPPParse()
 {
 
 }
-
+//======================================================================
 void TestCPPParse::initTestCase()
 {
 
 }
-
+//======================================================================
 void TestCPPParse::cleanupTestCase()
 {
 
 }
-
+//======================================================================
 void TestCPPParse::test_case1()
 {
 
 }
 //======================================================================
-void TestCPPParse::CheckIfNullReturnHasNoFunction()
+void TestCPPParse::test_IfNullReturnHasNoFunction()
 {
 Parser parser;
 QStringList result=parser.GetFunctionNames();
 QVERIFY2(result.length()==0,"Null doesnt return empty");
 }
 //======================================================================
-void TestCPPParse::CheckIfEmptyStringReturnHasNoFunction()
+void TestCPPParse::test_EmptyStringReturnHasNoFunction()
 {
   Parser parser;
 QStringList result=parser.GetFunctionNames();
 QVERIFY2(result.length()==0,"empty string doesnt return empty");
 }
 //======================================================================
-QStringList TestCPPParse::GetTestFunctionResultsFromFile(QString fileName)
-{
-    QStringList result;
-    if(!QFile::exists(fileName)){qDebug()<<"test file does not exits:"<<fileName;return result;}
-    QFile resultFile(fileName);
-    resultFile.open(QFile::ReadOnly);
-    QByteArray content=resultFile.readAll();
-    resultFile.close();
-    return  QString::fromLatin1(content).split('\n');
-}
-
-//======================================================================
 void TestCPPParse::test_SimpleMainAndInclude()
 {
-
 Parser parser;
 parser.SetFileName("../../../TestModels/SimpleMain.cpp");
-QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/SimpleMain.cpp.res");
+QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/SimpleMain.cpp.res");
 QStringList testResults=parser.GetFunctionNames();
 qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults;
 QVERIFY(preDefinedResults==testResults);
 }
-
-
+//======================================================================
 void TestCPPParse::test_MainAndFunction()
 {
     Parser parser;
     parser.SetFileName("../../../TestModels/MainAndOneFunction.cpp");
-    QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/MainAndOneFunction.cpp.res");
+    QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/MainAndOneFunction.cpp.res");
     QStringList testResults=parser.GetFunctionNames();
     qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
     QVERIFY(preDefinedResults==testResults);
 }
-
+//======================================================================
 void TestCPPParse::test_MainAndFunctionAnd2Includes()
 {
     Parser parser;
     parser.SetFileName("../../../TestModels/MainAndOneFunction2Includes.cpp");
-    QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/MainAndOneFunction2Includes.cpp.res");
+    QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/MainAndOneFunction2Includes.cpp.res");
     QStringList testResults=parser.GetFunctionNames();
     qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
     qDebug()<<"res="<<testResults.at(1)<<" ans="<<preDefinedResults.at(1);
     QVERIFY(preDefinedResults==testResults);
 }
 
+void TestCPPParse::TestFile(QString fileName)
+{
+Parser parser;
+parser.SetFileName(fileName);
+QStringList preDefinedResults=GetTestExpectedResultsFromFile(fileName+".res");
+QStringList testResults=parser.GetFunctionNames();
+//qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
+//qDebug()<<"res="<<testResults.at(1)<<" ans="<<preDefinedResults.at(1);
+qDebug() << "Testing file"<<fileName;
+
+if(preDefinedResults.count()==testResults.count())
+{
+    for (int i=0;i<testResults.count();i++) {
+
+        if(testResults[i]!=preDefinedResults[i])
+        qDebug()<<"test result["<<i<<"] = "<<testResults.at(i)<<" pre="<<testResults.at(i);
+    }
+
+
+    return;
+}
+else {
+
+
+
+    for (int i=0;i<testResults.count();i++) {
+        qDebug()<<"test result["<<i<<"] = "<<testResults.at(i);
+    }
+    for (int i=0;i<preDefinedResults.count();i++) {
+        qDebug()<<"predefine result["<<i<<"] = "<<preDefinedResults.at(i);
+    }
+}
+
+QVERIFY(preDefinedResults==testResults);
+
+}
+
+void TestCPPParse::test_FilesAutomatically()
+{
+    QDir dir("../../../TestModels/AutomaticTest/");
+    dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+    dir.setSorting(QDir::Size | QDir::Reversed);
+    dir.setNameFilters(QStringList()<<"*.cpp");
+    QFileInfoList list = dir.entryInfoList();
+
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list.at(i);
+
+        TestFile("../../../TestModels/AutomaticTest/"+fileInfo.fileName());
+           }
+}
+//======================================================================
 void TestCPPParse::test_GetFunctionsWithComments()
 {
     Parser parser;
     parser.SetFileName("../../../TestModels/Comments.cpp");
-    QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/Comments.cpp.res");
+    QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/Comments.cpp.res");
     QStringList testResults=parser.GetFunctionNames();
     qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
     qDebug()<<"res="<<testResults.at(1)<<" ans="<<preDefinedResults.at(1);
     QVERIFY(preDefinedResults==testResults);
 }
-
-
+//======================================================================
+void TestCPPParse::test_GetFunctionsWithDefinTags()
+{
+    Parser parser;
+    parser.SetFileName("../../../TestModels/Define.cpp");
+    QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/Define.cpp.res");
+    QStringList testResults=parser.GetFunctionNames();
+    qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
+    qDebug()<<"res="<<testResults.at(1)<<" ans="<<preDefinedResults.at(1);
+    QVERIFY(preDefinedResults==testResults);
+}
+//======================================================================
 void TestCPPParse::test_BracesParsWithEmptyAndNull()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("");
@@ -135,7 +188,7 @@ void TestCPPParse::test_BracesParsWithEmptyAndNull()
      bracesList= parser.GetBraces(NULL);
      QVERIFY2(bracesList.count()==0,"null return must be no braces");
 }
-
+//======================================================================
 void TestCPPParse::test_BracesPraseSimplest()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("{in brace}");
@@ -145,14 +198,14 @@ void TestCPPParse::test_BracesPraseSimplest()
 //  if(bracesList.count()>0)qDebug()<<"==>"<<bracesList[0];
   QVERIFY2(bracesList[0]=="{in brace}","null return must be no braces");
 }
-
+//======================================================================
 void TestCPPParse::test_BracesPraseMultiple()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("{in brace1}\n{in brace2}");
     QVERIFY2(bracesList[0]=="{in brace2}","not brace2");
     QVERIFY2(bracesList[1]=="{in brace1}","not brace1");
 }
-
+//======================================================================
 void TestCPPParse::test_BracesPraseNested()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("{in brace1{in brace2}}");
@@ -160,7 +213,7 @@ void TestCPPParse::test_BracesPraseNested()
   QVERIFY2(bracesList[0]=="{in brace2}","inside brace error");
 
 }
-
+//======================================================================
 void TestCPPParse::test_GetParentBraces()
 {
   Parser parser;
@@ -188,6 +241,18 @@ void TestCPPParse::test_GetParentBraces()
     QVERIFY2(braces.length()==0,"step4 len");
 
 }
+//======================================================================
+QStringList TestCPPParse::GetTestExpectedResultsFromFile(QString fileName)
+{
+    QStringList result;
+    if(!QFile::exists(fileName)){qDebug()<<"test file does not exits:"<<fileName;return result;}
+    QFile resultFile(fileName);
+    resultFile.open(QFile::ReadOnly);
+    QByteArray content=resultFile.readAll();
+    resultFile.close();
+    return  QString::fromLatin1(content).split('\n');
+}
+
 
 QTEST_APPLESS_MAIN(TestCPPParse)
 

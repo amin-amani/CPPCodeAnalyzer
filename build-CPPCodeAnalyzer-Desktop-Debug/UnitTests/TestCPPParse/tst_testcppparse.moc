@@ -18,8 +18,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_TestCPPParse_t {
-    QByteArrayData data[16];
-    char stringdata0[359];
+    QByteArrayData data[18];
+    char stringdata0[412];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,29 +33,33 @@ QT_MOC_LITERAL(1, 13, 12), // "initTestCase"
 QT_MOC_LITERAL(2, 26, 0), // ""
 QT_MOC_LITERAL(3, 27, 15), // "cleanupTestCase"
 QT_MOC_LITERAL(4, 43, 10), // "test_case1"
-QT_MOC_LITERAL(5, 54, 30), // "CheckIfNullReturnHasNoFunction"
-QT_MOC_LITERAL(6, 85, 37), // "CheckIfEmptyStringReturnHasNo..."
-QT_MOC_LITERAL(7, 123, 20), // "test_MainAndFunction"
-QT_MOC_LITERAL(8, 144, 25), // "test_SimpleMainAndInclude"
-QT_MOC_LITERAL(9, 170, 32), // "test_MainAndFunctionAnd2Includes"
-QT_MOC_LITERAL(10, 203, 31), // "test_BracesParsWithEmptyAndNull"
-QT_MOC_LITERAL(11, 235, 24), // "test_BracesPraseSimplest"
-QT_MOC_LITERAL(12, 260, 24), // "test_BracesPraseMultiple"
-QT_MOC_LITERAL(13, 285, 22), // "test_BracesPraseNested"
-QT_MOC_LITERAL(14, 308, 20), // "test_GetParentBraces"
-QT_MOC_LITERAL(15, 329, 29) // "test_GetFunctionsWithComments"
+QT_MOC_LITERAL(5, 54, 30), // "test_IfNullReturnHasNoFunction"
+QT_MOC_LITERAL(6, 85, 35), // "test_EmptyStringReturnHasNoFu..."
+QT_MOC_LITERAL(7, 121, 20), // "test_MainAndFunction"
+QT_MOC_LITERAL(8, 142, 25), // "test_SimpleMainAndInclude"
+QT_MOC_LITERAL(9, 168, 32), // "test_MainAndFunctionAnd2Includes"
+QT_MOC_LITERAL(10, 201, 31), // "test_BracesParsWithEmptyAndNull"
+QT_MOC_LITERAL(11, 233, 24), // "test_BracesPraseSimplest"
+QT_MOC_LITERAL(12, 258, 24), // "test_BracesPraseMultiple"
+QT_MOC_LITERAL(13, 283, 22), // "test_BracesPraseNested"
+QT_MOC_LITERAL(14, 306, 20), // "test_GetParentBraces"
+QT_MOC_LITERAL(15, 327, 29), // "test_GetFunctionsWithComments"
+QT_MOC_LITERAL(16, 357, 30), // "test_GetFunctionsWithDefinTags"
+QT_MOC_LITERAL(17, 388, 23) // "test_FilesAutomatically"
 
     },
     "TestCPPParse\0initTestCase\0\0cleanupTestCase\0"
-    "test_case1\0CheckIfNullReturnHasNoFunction\0"
-    "CheckIfEmptyStringReturnHasNoFunction\0"
+    "test_case1\0test_IfNullReturnHasNoFunction\0"
+    "test_EmptyStringReturnHasNoFunction\0"
     "test_MainAndFunction\0test_SimpleMainAndInclude\0"
     "test_MainAndFunctionAnd2Includes\0"
     "test_BracesParsWithEmptyAndNull\0"
     "test_BracesPraseSimplest\0"
     "test_BracesPraseMultiple\0"
     "test_BracesPraseNested\0test_GetParentBraces\0"
-    "test_GetFunctionsWithComments"
+    "test_GetFunctionsWithComments\0"
+    "test_GetFunctionsWithDefinTags\0"
+    "test_FilesAutomatically"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,7 +69,7 @@ static const uint qt_meta_data_TestCPPParse[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -73,22 +77,26 @@ static const uint qt_meta_data_TestCPPParse[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x08 /* Private */,
-       3,    0,   85,    2, 0x08 /* Private */,
-       4,    0,   86,    2, 0x08 /* Private */,
-       5,    0,   87,    2, 0x08 /* Private */,
-       6,    0,   88,    2, 0x08 /* Private */,
-       7,    0,   89,    2, 0x08 /* Private */,
-       8,    0,   90,    2, 0x08 /* Private */,
-       9,    0,   91,    2, 0x08 /* Private */,
-      10,    0,   92,    2, 0x08 /* Private */,
-      11,    0,   93,    2, 0x08 /* Private */,
-      12,    0,   94,    2, 0x08 /* Private */,
-      13,    0,   95,    2, 0x08 /* Private */,
-      14,    0,   96,    2, 0x08 /* Private */,
-      15,    0,   97,    2, 0x08 /* Private */,
+       1,    0,   94,    2, 0x08 /* Private */,
+       3,    0,   95,    2, 0x08 /* Private */,
+       4,    0,   96,    2, 0x08 /* Private */,
+       5,    0,   97,    2, 0x08 /* Private */,
+       6,    0,   98,    2, 0x08 /* Private */,
+       7,    0,   99,    2, 0x08 /* Private */,
+       8,    0,  100,    2, 0x08 /* Private */,
+       9,    0,  101,    2, 0x08 /* Private */,
+      10,    0,  102,    2, 0x08 /* Private */,
+      11,    0,  103,    2, 0x08 /* Private */,
+      12,    0,  104,    2, 0x08 /* Private */,
+      13,    0,  105,    2, 0x08 /* Private */,
+      14,    0,  106,    2, 0x08 /* Private */,
+      15,    0,  107,    2, 0x08 /* Private */,
+      16,    0,  108,    2, 0x08 /* Private */,
+      17,    0,  109,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -116,8 +124,8 @@ void TestCPPParse::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->initTestCase(); break;
         case 1: _t->cleanupTestCase(); break;
         case 2: _t->test_case1(); break;
-        case 3: _t->CheckIfNullReturnHasNoFunction(); break;
-        case 4: _t->CheckIfEmptyStringReturnHasNoFunction(); break;
+        case 3: _t->test_IfNullReturnHasNoFunction(); break;
+        case 4: _t->test_EmptyStringReturnHasNoFunction(); break;
         case 5: _t->test_MainAndFunction(); break;
         case 6: _t->test_SimpleMainAndInclude(); break;
         case 7: _t->test_MainAndFunctionAnd2Includes(); break;
@@ -127,6 +135,8 @@ void TestCPPParse::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 11: _t->test_BracesPraseNested(); break;
         case 12: _t->test_GetParentBraces(); break;
         case 13: _t->test_GetFunctionsWithComments(); break;
+        case 14: _t->test_GetFunctionsWithDefinTags(); break;
+        case 15: _t->test_FilesAutomatically(); break;
         default: ;
         }
     }
@@ -158,13 +168,13 @@ int TestCPPParse::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 16)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 16;
     }
     return _id;
 }

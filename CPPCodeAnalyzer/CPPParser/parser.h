@@ -21,7 +21,11 @@ public:
     QStringList GetBraces(QString input);
     QList<QPoint> GetParentBraces(QString input);
     QStringList GetLineComments();
+    //QList<QPoint> GetBlockComments();
+    QStringList GetDefines();
     QStringList GetBlockComments();
+private:
+    QString RemoveTabsAndEnters(QString text);
 };
 
 #endif // PARSER_H

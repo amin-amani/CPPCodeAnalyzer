@@ -1,5 +1,6 @@
 #include "parser.h"
 
+
 //===============================================================================
 Parser::Parser()
 {
@@ -37,21 +38,23 @@ QStringList Parser::GetIncludes()
     QStringList result;
     QList<QByteArray> fileLines=_fileContent.split('\n');
 
+    int sgncount=0;
     for (int line=0;line<fileLines.count();line++) {
         QString currentLine=QString::fromLatin1(fileLines[line]).trimmed().replace(" ","");
 
     int startIndex= currentLine.indexOf("#include",0);
     if(startIndex<0)continue;
+
     for(int i=startIndex;i<currentLine.length();i++)
     {
-        if(currentLine[i]=='>')
+        if(currentLine[i]=='"')sgncount++;
+        if(currentLine[i]=='>' || sgncount==2)
         {
-            //result.append(currentLine.mid(startIndex,i-startIndex+1));
+
             result.append(fileLines[line]);
+            sgncount=0;
         }
-
     }
-
     }
     return  result;
 }
@@ -118,9 +121,26 @@ QStringList Parser::GetLineComments()
 
       }
   return  result;
+}
+//===============================================================================
+QStringList Parser::GetDefines()
+{
+    QStringList result;
+    QList<QByteArray> fileLines=_fileContent.split('\n');
+    for (int i=0;i<fileLines.count();i++) {
+    int startIndex=fileLines[i].indexOf("#define ");
+    if(startIndex<0)continue;
+    result.append(fileLines[i].mid(startIndex,fileLines[i].count()-startIndex));
+
+        }
+    return  result;
+}
+//===============================================================================
+QString Parser::RemoveTabsAndEnters(QString text)
+{
+    return text.replace("\t","").replace("\n","").replace("\r","");
 
 }
-
 //===============================================================================
 QStringList Parser::GetBlockComments()
 {
@@ -129,38 +149,32 @@ QStringList Parser::GetBlockComments()
   QString comment="";
   for (int i=0;i<_fileContent.count()-1;i++)
   {
-
-
       if(_fileContent[i]=='/' && _fileContent[i+1]=='*' && startInex<0)startInex=i;
       if(_fileContent[i]=='*' && _fileContent[i+1]=='/' && startInex>=0 && comment.length()>3)
       {
-    comment=comment+_fileContent[i]+_fileContent[i+1];
+        comment=comment+_fileContent[i]+_fileContent[i+1];
         result.append(comment);
         startInex=-1;
         comment="";
-
       }
-      if(startInex>0)comment+=_fileContent[i];
-
+      if(startInex>=0)comment+=_fileContent[i];
   }
   return  result;
-
 }
-
-
 //===============================================================================
 QStringList Parser::GetFunctionNames()
 {
 QStringList result;
-QString text;
+QByteArray text;
 
 if(_fileContent.isNull())return result;
 if(_fileContent.isEmpty())return result;
 text=_fileContent;
 
+
 QStringList bcomments= GetBlockComments();
 foreach (QString bcomment, bcomments) {
-text=text.replace(bcomment,"");
+text=text.replace(bcomment.toLatin1(),"");
 }
 
 QStringList comments= GetLineComments();
@@ -168,37 +182,81 @@ foreach (QString commnet, comments) {
 text=text.replace(commnet,"");
 }
 
+QStringList Defines= GetDefines();
+foreach (QString define, Defines) {
+text=text.replace(define.toLatin1(),"");
+}
+
+
 QStringList Includes= GetIncludes();
 foreach (QString include, Includes) {
 text=text.replace(include,"");
 }
 QList<QPoint> parentBraces=GetParentBraces(text);
-QStringList bracesTexts;
-for (int i=0;i<parentBraces.count();i++) {
-    bracesTexts.append(text.mid(parentBraces[i].x(),parentBraces[i].y()-parentBraces[i].x()+1));
+for(int i=0;i<parentBraces.count();i++)
+{
+     int endbrace=parentBraces[i].y();
+     bool colonExits=false;
+    while(true)
+    {
+        endbrace++;
+        char ch=text[endbrace];
+        if(ch==';')colonExits=true;
+        if(ch=='\n'){
+            break;
+
+        }
+    }
+    if(colonExits)continue;
+    int end=parentBraces[i].x();
+    int start=end;
+    int pransCount=0;
+
+    while(true)
+    {
+        start--;
+        if(start<0)break;
+        char ch=text[start];
+        if(ch==')' || ch=='('){pransCount++;}
+        if(ch=='\n' && pransCount==2){
+           QString temp= text.mid(start,end-start);
+        result.append(RemoveTabsAndEnters(temp));
+        break;
+        }
+    }
+
 }
 
-foreach (QString brace, bracesTexts) {
-text.replace(brace,"{}");
-}
-QStringList ans;
-        ans.append(  text.split("{}"));
+//QStringList bracesTexts;
+//for (int i=0;i<parentBraces.count();i++) {
+//    bracesTexts.append(text.mid(parentBraces[i].x(),parentBraces[i].y()-parentBraces[i].x()+1));
+//}
+
+//foreach (QString brace, bracesTexts) {
+//    text.replace(brace,"{}");
+//}
+
+//foreach (QString brace, bracesTexts) {
+//    text.replace(brace,"{}");
+//}
+//QStringList ans;
+  //      ans.append(  QString::fromLatin1(text).split("{}"));
 //regex for{}-> \{\s*}
 //between two()-> \((.*?)\)
-for (int i=0;i<result.count();i++) {
-   ans[i]=ans[i].trimmed();
-   if(ans[i].contains("\n"))ans[i]="";
+//for (int i=0;i<result.count();i++) {
+//   ans[i]=ans[i].trimmed();
+//   if(ans[i].contains("\n"))ans[i]="";
 
 
-}
+//}
 
-for (int i=0;i<ans.count();i++) {
-    if(ans.isEmpty())continue;
-QString str=ans[i].trimmed();
-if(!str.isEmpty())
-   result.append(str);
+//for (int i=0;i<ans.count();i++) {
+//    if(ans.isEmpty())continue;
+//QString str=ans[i].trimmed();
+//if(!str.isEmpty())
+//   result.append(str);
 
-}
+//}
 
 //result.append(text);
 return  result;
