@@ -14,9 +14,10 @@ class Parser
     QByteArray _fileContent;
 public:
     Parser();
-    QStringList GetFunctionNames();
+
     Parser(QString fileName);
     void SetFileName(QString fileName);
+    QStringList GetFunctionNames();
     QStringList GetIncludes();
     QStringList GetBraces(QString input);
     QList<QPoint> GetParentBraces(QString input);
@@ -24,8 +25,17 @@ public:
     //QList<QPoint> GetBlockComments();
     QStringList GetDefines();
     QStringList GetBlockComments();
+    QStringList GetFunctionSignatures(QByteArray text);
+
+private slots:
+
 private:
     QString RemoveTabsAndEnters(QString text);
+    QString GetFunctionFromBrace(QPoint braceLocation, QByteArray text);
+    QByteArray RemoveBlockComments(QByteArray data);
+    QByteArray RemoveLineComments(QByteArray data);
+    QByteArray RemoveDefines(QByteArray data);
+    QByteArray RemoveIncludes(QByteArray data);
 };
 
 #endif // PARSER_H

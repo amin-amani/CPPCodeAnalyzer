@@ -49,11 +49,9 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../CPPCodeAnalyzer/CPPParser/main.cpp \
-		../../CPPCodeAnalyzer/CPPParser/parser.cpp \
-		../../CPPCodeAnalyzer/CPPParser/treepoints.cpp 
+		../../CPPCodeAnalyzer/CPPParser/parser.cpp 
 OBJECTS       = main.o \
-		parser.o \
-		treepoints.o
+		parser.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -143,10 +141,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../../CPPCodeAnalyzer/CPPParser/CPPParser.pro ../../CPPCodeAnalyzer/CPPParser/parser.h \
-		../../CPPCodeAnalyzer/CPPParser/treepoints.h ../../CPPCodeAnalyzer/CPPParser/main.cpp \
-		../../CPPCodeAnalyzer/CPPParser/parser.cpp \
-		../../CPPCodeAnalyzer/CPPParser/treepoints.cpp
+		../../CPPCodeAnalyzer/CPPParser/CPPParser.pro ../../CPPCodeAnalyzer/CPPParser/parser.h ../../CPPCodeAnalyzer/CPPParser/main.cpp \
+		../../CPPCodeAnalyzer/CPPParser/parser.cpp
 QMAKE_TARGET  = CPPParser
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = CPPParser
@@ -374,8 +370,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/parser.h ../../CPPCodeAnalyzer/CPPParser/treepoints.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../CPPCodeAnalyzer/CPPParser/treepoints.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/parser.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../CPPCodeAnalyzer/CPPParser/parser.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -417,9 +413,6 @@ main.o: ../../CPPCodeAnalyzer/CPPParser/main.cpp
 
 parser.o: ../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../CPPCodeAnalyzer/CPPParser/parser.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parser.o ../../CPPCodeAnalyzer/CPPParser/parser.cpp
-
-treepoints.o: ../../CPPCodeAnalyzer/CPPParser/treepoints.cpp ../../CPPCodeAnalyzer/CPPParser/treepoints.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o treepoints.o ../../CPPCodeAnalyzer/CPPParser/treepoints.cpp
 
 ####### Install
 
