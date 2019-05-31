@@ -112,6 +112,10 @@ void TestCPPParse::TestFile(QString fileName)
 Parser parser;
 parser.SetFileName(fileName);
 QStringList preDefinedResults=GetTestExpectedResultsFromFile(fileName+".res");
+for(int i=0;i< preDefinedResults.count();i++)
+{
+   if(preDefinedResults[i].isEmpty())preDefinedResults.removeAt(i);
+}
 QStringList testResults=parser.GetFunctionNames();
 //qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
 //qDebug()<<"res="<<testResults.at(1)<<" ans="<<preDefinedResults.at(1);
@@ -120,13 +124,12 @@ qDebug() << "Testing file"<<fileName;
 if(preDefinedResults.count()==testResults.count())
 {
     for (int i=0;i<testResults.count();i++) {
-
         if(testResults[i]!=preDefinedResults[i])
         qDebug()<<"test result["<<i<<"] = "<<testResults.at(i)<<" pre="<<testResults.at(i);
     }
 
 
-    return;
+
 }
 else {
 
@@ -140,6 +143,8 @@ else {
     }
 }
 
+//int l=preDefinedResults.count();
+//qDebug()<< l;
 QVERIFY(preDefinedResults==testResults);
 
 }

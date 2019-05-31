@@ -160,11 +160,11 @@ QString Parser::RemoveTabsAndEnters(QString text)
 QString Parser::GetFunctionFromBrace(QPoint braceLocation,QByteArray text)
 {
     QString result;
-    int endofBrace=braceLocation.y();
-    while(endofBrace<text.count())
+    int endOfBrace=braceLocation.y();
+    while(endOfBrace<text.count())
     {
-        endofBrace++;
-        char ch=text[endofBrace];
+        endOfBrace++;
+        char ch=text[endOfBrace];
         if(ch==';')return result;
         if(ch=='\n')  break;
     }
@@ -185,6 +185,8 @@ QString Parser::GetFunctionFromBrace(QPoint braceLocation,QByteArray text)
 //===============================================================================
 QStringList Parser::GetFunctionSignatures(QByteArray text)
 {
+    if(_fileName.contains("GXDLMSMd5"))
+        qDebug()<<"file";
     QStringList result;
     QList<QPoint> parentBraces=GetParentBraces(text);
     for(int i=0;i<parentBraces.count();i++)
