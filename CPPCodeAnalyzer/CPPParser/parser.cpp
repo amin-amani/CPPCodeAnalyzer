@@ -26,6 +26,7 @@ void Parser::SetFileName(QString fileName)
     if(!file.open(QFile::ReadOnly))
      return;
     _fileContent= file.readAll();
+    file.close();
 }
 //===============================================================================
 QStringList Parser::GetIncludes()
@@ -252,10 +253,7 @@ QStringList Parser::GetFunctionNames()
 QList<QPoint> Parser::GetParentBraces(QString input)
 {
     QList< QPoint> result;
-
     int openCount=-1;
-
-
     QPoint point;
     for (int i=0;i<input.count();i++)
     {
