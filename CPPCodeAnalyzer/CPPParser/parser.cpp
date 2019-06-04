@@ -1,6 +1,4 @@
 #include "parser.h"
-
-
 //===============================================================================
 Parser::Parser()
 {
@@ -13,7 +11,7 @@ Parser::Parser(QString fileName)
     QFile file;
     file.setFileName(_fileName);
     if(!file.open(QFile::ReadOnly))
-    return;
+        return;
     _fileContent= file.readAll();
     file.close();
 }
@@ -24,14 +22,15 @@ void Parser::SetFileName(QString fileName)
     QFile file;
     file.setFileName(_fileName);
     if(!file.open(QFile::ReadOnly))
-     return;
+        return;
     _fileContent= file.readAll();
     file.close();
 }
 //===============================================================================
-QStringList Parser::GetIncludes()
+QList<ParserObject> Parser::GetIncludes()
 {
-    QStringList result;
+    QList<ParserObject> result;
+
     QList<QByteArray> fileLines=_fileContent.split('\n');
 
     int sgncount=0;
@@ -46,8 +45,15 @@ QStringList Parser::GetIncludes()
             if(currentLine[i]=='"')sgncount++;
             if(currentLine[i]=='>' || sgncount==2)
             {
+                ParserObject temp;
+                temp.Type=Include;
+                temp.Body=fileLines[line];
+                temp.Location.setX(startIndex);
+                temp.Location.setY(i);
 
-                result.append(fileLines[line]);
+                result.append(temp);
+
+                //result.append(fileLines[line]);
                 sgncount=0;
             }
         }
@@ -104,37 +110,51 @@ QStringList Parser::GetBraces(QString input)
 
     return  result;
 }
-
 //===============================================================================
-QStringList Parser::GetLineComments()
+QList<ParserObject> Parser::GetLineComments()
 {
-    QStringList result;
+    //QStringList result;
+    QList<ParserObject> res;
     QList<QByteArray> fileLines=_fileContent.split('\n');
     for (int i=0;i<fileLines.count();i++) {
         int startIndex=fileLines[i].indexOf("//");
         if(startIndex<0)continue;
-        result.append(fileLines[i].mid(startIndex,fileLines[i].count()-startIndex));
+        ParserObject temp;
+        temp.Body=fileLines[i].mid(startIndex,fileLines[i].count()-startIndex);
+        temp.Type=Comment;
+        temp.Location.setX(startIndex);
+        temp.Location.setY(fileLines[i].count());
+        res.append(temp);
+        //result.append(fileLines[i].mid(startIndex,fileLines[i].count()-startIndex));
 
     }
-    return  result;
+    return  res;
 }
 //===============================================================================
-QStringList Parser::GetDefines()
+QList<ParserObject> Parser::GetDefines()
 {
-    QStringList result;
+    QList<ParserObject>result;
+    //QStringList result;
     QList<QByteArray> fileLines=_fileContent.split('\n');
     for (int i=0;i<fileLines.count();i++) {
         int startIndex=fileLines[i].indexOf("#define ");
         if(startIndex<0)continue;
-        result.append(fileLines[i].mid(startIndex,fileLines[i].count()-startIndex));
+        ParserObject temp;
+        temp.Type=Define;
+        temp.Location.setX(startIndex);
+        temp.Location.setY(fileLines[i].count());
+        temp.Body=fileLines[i].mid(startIndex,fileLines[i].count()-startIndex);
+        result.append(temp);
+        //result.append(fileLines[i].mid(startIndex,fileLines[i].count()-startIndex));
 
     }
     return  result;
 }
 //===============================================================================
-QStringList Parser::GetBlockComments()
+QList<ParserObject> Parser::GetBlockComments()
 {
-    QStringList result;
+    // QStringList result;
+    QList<ParserObject> res;
     int startInex=-1;
     QString comment="";
     for (int i=0;i<_fileContent.count()-1;i++)
@@ -143,13 +163,19 @@ QStringList Parser::GetBlockComments()
         if(_fileContent[i]=='*' && _fileContent[i+1]=='/' && startInex>=0 && comment.length()>3)
         {
             comment=comment+_fileContent[i]+_fileContent[i+1];
-            result.append(comment);
+            // result.append(comment);
+            ParserObject temp;
+            temp.Location.setX(startInex);
+            temp.Location.setY(i+1);
+            temp.Type=Comment;
+            temp.Body=comment;
+            res.append(temp);
             startInex=-1;
             comment="";
         }
         if(startInex>=0)comment+=_fileContent[i];
     }
-    return  result;
+    return  res;
 }
 //===============================================================================
 QString Parser::RemoveTabsAndEnters(QString text)
@@ -184,70 +210,200 @@ QString Parser::GetFunctionFromBrace(QPoint braceLocation,QByteArray text)
     return RemoveTabsAndEnters( result);
 }
 //===============================================================================
-QStringList Parser::GetFunctionSignatures(QByteArray text)
+QString Parser::GetClassFromBrace(QPoint braceLocation,QByteArray text)
 {
-    if(_fileName.contains("GXDLMSMd5"))
-        qDebug()<<"file";
-    QStringList result;
+    QString result;
+    int start=braceLocation.x();
+    int count=0;
+    while (start-->0) {
+        result=text.mid(start,count);
+        count++;
+        if(result.contains("class "))break;
+    }
+    return RemoveTabsAndEnters( result);
+}
+//===============================================================================
+QList<ParserObject> Parser::GetClassesSignatures(QByteArray text)
+{
+    QList<ParserObject> result;
+    QList<QPoint> parentBraces=GetParentBraces(text);
+    for(int i=0;i<parentBraces.count();i++)
+    {
+        QString temp= GetClassFromBrace(parentBraces[i],text);
+        if(!temp.isEmpty()){
+            ParserObject tempobj;
+            tempobj.Type=Class;
+            tempobj.Signature=temp;
+            tempobj.Location=parentBraces[i];
+            result.append(tempobj);
+
+        }
+
+    }
+    return  result;
+}
+//===============================================================================
+QList<ParserObject> Parser::GetFunctionSignatures(QByteArray text)
+{
+    //  if(_fileName.contains("GXDLMSMd5"))
+    //        qDebug()<<"file";
+    QList<ParserObject> result;
+    //QStringList result;
     QList<QPoint> parentBraces=GetParentBraces(text);
     for(int i=0;i<parentBraces.count();i++)
     {
         QString temp= GetFunctionFromBrace(parentBraces[i],text);
         if(!temp.isEmpty())
-        result.append(temp);
+        {    ParserObject tempobj;
+            tempobj.Body=text.mid(parentBraces[i].x(),parentBraces[i].y()-parentBraces[i].x());
+            tempobj.Type=Function;
+            tempobj.Location.setX(0);
+            tempobj.Location.setY(0);
+            tempobj.Signature=temp;
+
+            result.append(tempobj);
+
+
+            //result.append(temp);
+        }
     }
     return  result;
 }
 //===============================================================================
+QByteArray Parser::RemoveParserObject(QByteArray data,QList<ParserObject> objectList)
+{
+    foreach (ParserObject obj, objectList) {
+        data=data.replace(obj.Body.toLatin1(),"");
+    }
+    return  data;
+}
+//===============================================================================
 QByteArray Parser::RemoveBlockComments(QByteArray data)
 {
-    QStringList bcomments= GetBlockComments();
-    foreach (QString bcomment, bcomments) {
-        data=data.replace(bcomment.toLatin1(),"");
+    QList<ParserObject> bcomments= GetBlockComments();
+    foreach (ParserObject bcomment, bcomments) {
+        data=data.replace(bcomment.Body.toLatin1(),"");
     }
     return  data;
 }
 //===============================================================================
 QByteArray Parser::RemoveLineComments(QByteArray data)
 {
-    QStringList comments= GetLineComments();
-    foreach (QString commnet, comments) {
-        data=data.replace(commnet,"");
+    QList<ParserObject> comments= GetLineComments();
+    foreach (ParserObject commnet, comments) {
+        data=data.replace(commnet.Body,"");
     }
     return  data;
 }
 //===============================================================================
 QByteArray Parser::RemoveDefines(QByteArray data)
 {
-    QStringList Defines= GetDefines();
-    foreach (QString define, Defines) {
-        data=data.replace(define.toLatin1(),"");
+
+    QList<ParserObject> Defines= GetDefines();
+    foreach (ParserObject define, Defines) {
+        data=data.replace(define.Body.toLatin1(),"");
     }
     return  data;
 }
 //===============================================================================
 QByteArray Parser::RemoveIncludes(QByteArray data)
 {
-    QStringList Includes= GetIncludes();
-    foreach (QString include, Includes) {
-        data=data.replace(include,"");
+    QList<ParserObject>  Includes= GetIncludes();
+    foreach (ParserObject include, Includes) {
+        data=data.replace(include.Body,"");
     }
     return  data;
 }
 //===============================================================================
 QStringList Parser::GetFunctionNames()
 {
+    QList<ParserObject> res;
     QStringList result;
     QByteArray text;
     if(_fileContent.isNull())return result;
     if(_fileContent.isEmpty())return result;
     text=_fileContent;
-    text=RemoveBlockComments(text);
-    text=RemoveLineComments(text);
-    text=RemoveDefines(text);
-    text=RemoveIncludes(text);
-    result=GetFunctionSignatures(text);
+    QList<ParserObject> blockComments=GetBlockComments();
+    res.append(blockComments);
+    text=RemoveParserObject(text,blockComments);
+
+    QList<ParserObject> lineComments=GetLineComments();
+    res.append(blockComments);
+    text=RemoveParserObject(text,lineComments);
+
+    QList<ParserObject> defines=GetDefines();
+    res.append(defines);
+    text=RemoveParserObject(text,defines);
+
+
+    QList<ParserObject> includes=GetIncludes();
+    res.append(includes);
+    text=RemoveParserObject(text,includes);
+QList<ParserObject> funcs=GetFunctionSignatures(text);
+
+foreach(ParserObject obj,funcs)
+    result.append(obj.Signature);
+    //result=
     return  result;
+}
+//===============================================================================
+QList<ParserObject> Parser::GetClassesNames()
+{
+    QList<ParserObject> result;
+    QByteArray text;
+    if(_fileContent.isNull())return result;
+    if(_fileContent.isEmpty())return result;
+    text=_fileContent;
+
+    QList<ParserObject> blockComments=GetBlockComments();
+    result.append(blockComments);
+    text=RemoveParserObject(text,blockComments);
+
+    QList<ParserObject> lineComments=GetLineComments();
+    result.append(blockComments);
+    text=RemoveParserObject(text,lineComments);
+
+    QList<ParserObject> defines=GetDefines();
+    result.append(defines);
+    text=RemoveParserObject(text,defines);
+
+    QList<ParserObject> includes=GetIncludes();
+    result.append(includes);
+    text=RemoveParserObject(text,includes);
+
+    result=GetClassesSignatures(text);
+    return  result;
+}
+//===============================================================================
+QList<ParserObject> Parser::Start()
+{
+    QList<ParserObject> result;
+    QByteArray text;
+    if(_fileContent.isNull())return result;
+    if(_fileContent.isEmpty())return result;
+    text=_fileContent;
+
+    QList<ParserObject> blockComments=GetBlockComments();
+    result.append(blockComments);
+    text=RemoveParserObject(text,blockComments);
+
+    QList<ParserObject> lineComments=GetLineComments();
+    result.append(blockComments);
+    text=RemoveParserObject(text,lineComments);
+
+    QList<ParserObject> defines=GetDefines();
+    result.append(defines);
+    text=RemoveParserObject(text,defines);
+
+    QList<ParserObject> includes=GetIncludes();
+    result.append(includes);
+    text=RemoveParserObject(text,includes);
+
+    result=GetClassesSignatures(text);
+    QList<ParserObject> funcs=GetFunctionSignatures(text);
+    result.append(funcs);
+    return  result;
+
 }
 //===============================================================================
 QList<QPoint> Parser::GetParentBraces(QString input)

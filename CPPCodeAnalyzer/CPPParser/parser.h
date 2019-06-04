@@ -8,28 +8,35 @@
 #include <QRegularExpression>
 #include <QFile>
 #include <QPoint>
+#include "objectfactory.h"
+
 class Parser
 {
     QString _fileName;
     QByteArray _fileContent;
 public:
+    friend class TestCPPParse;
     Parser();
-
     Parser(QString fileName);
     void SetFileName(QString fileName);
-    QStringList GetFunctionNames();
-    QStringList GetIncludes();
+    QList<ParserObject> GetIncludes();
     QStringList GetBraces(QString input);
     QList<QPoint> GetParentBraces(QString input);
-    QStringList GetLineComments();
+    QList<ParserObject> GetLineComments();
     //QList<QPoint> GetBlockComments();
-    QStringList GetDefines();
-    QStringList GetBlockComments();
-    QStringList GetFunctionSignatures(QByteArray text);
-
+    QList<ParserObject> GetDefines();
+    QList<ParserObject> GetBlockComments();
+    QList<ParserObject> GetFunctionSignatures(QByteArray text);
+    QStringList GetFunctionNames();
+    QList<ParserObject> GetClassesNames();
+    QList<ParserObject> GetClassesSignatures(QByteArray text);
+    QString GetClassFromBrace(QPoint braceLocation, QByteArray text);
+    QList<ParserObject> Start();
+    QByteArray RemoveParserObject(QByteArray input, QList<ParserObject> objectList);
 private slots:
 
 private:
+
     QString RemoveTabsAndEnters(QString text);
     QString GetFunctionFromBrace(QPoint braceLocation, QByteArray text);
     QByteArray RemoveBlockComments(QByteArray data);

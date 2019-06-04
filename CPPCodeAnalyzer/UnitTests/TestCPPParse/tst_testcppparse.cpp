@@ -3,12 +3,14 @@
 #include "../../CPPParser/parser.h"
 // add necessary includes here
 
+
 class TestCPPParse : public QObject
 {
-    Q_OBJECT
+     Q_OBJECT
 
     QStringList GetTestExpectedResultsFromFile(QString fileName);
 public:
+
     //======================================================================
     TestCPPParse();
     //======================================================================
@@ -51,6 +53,9 @@ private slots:
     //======================================================================
     void test_FilesAutomatically();
     //======================================================================
+    void test_SimpleCPPHeaderFile();
+
+    void test_CommentedFunction();
 
 };
 //======================================================================
@@ -179,6 +184,28 @@ void TestCPPParse::test_FilesAutomatically()
 
         TestFile("../../../TestModels/AutomaticTest/"+fileInfo.fileName());
     }
+}
+//======================================================================
+void TestCPPParse::test_SimpleCPPHeaderFile()
+{
+    Parser parser;
+    parser.SetFileName("../../../TestModels/SimpleCPPHeader.h");
+     QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/SimpleCPPHeader.h.res");
+    QList<ParserObject> testResults=parser.GetClassesNames();
+    QVERIFY(testResults.count()==1);
+    if(testResults.count()>0)
+    QVERIFY(testResults[0].Signature==preDefinedResults[0]);
+
+}
+//======================================================================
+void TestCPPParse::test_CommentedFunction()
+{
+    Parser parser;
+    parser.SetFileName("../../../TestModels/CommentedFunction.cpp");
+    QStringList preDefinedResults=GetTestExpectedResultsFromFile("../../../TestModels/CommentedFunction.cpp.res");
+    QStringList testResults=parser.GetFunctionNames();
+    qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults;
+    QVERIFY(preDefinedResults==testResults);
 }
 //======================================================================
 void TestCPPParse::test_GetFunctionsWithComments()
