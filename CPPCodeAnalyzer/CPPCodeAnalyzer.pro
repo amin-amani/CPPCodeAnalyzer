@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     CPPParser \
-    UnitTests
+    UnitTests \
+    widgetUI
