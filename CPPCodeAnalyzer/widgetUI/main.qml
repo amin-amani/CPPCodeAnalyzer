@@ -1,31 +1,36 @@
-import QtQuick 2.5
-import QtQuick.Window 2.2
-import "code.js" as MyScript
+import QtQuick 2.0
+import OpenGLUnderQML 1.0
 
+Item {
 
-Rectangle {
-    function setText(text)
-    {
+    width: 320
+    height: 480
 
-appWindow.children[0].name=text;
-        console.log(appWindow.children[0].id);
-
+    Squircle {
+        SequentialAnimation on t {
+            NumberAnimation { to: 1; duration: 2500; easing.type: Easing.InQuad }
+            NumberAnimation { to: 0; duration: 2500; easing.type: Easing.OutQuad }
+            loops: Animation.Infinite
+            running: true
+        }
     }
-    function setx(x)
-    {
+//    Rectangle {
+//        color: Qt.rgba(1, 1, 1, 0.7)
+//        radius: 10
+//        border.width: 1
+//        border.color: "white"
+//        anchors.fill: label
+//        anchors.margins: -10
+//    }
 
-appWindow.children[0].x=x;
-        console.log(x);
-
-    }
-
-id:appWindow
-anchors.fill: parent
-    visible: true
-    Component.onCompleted:
-    {
-
-        MyScript.createSpriteObjects();
-    //setText("hj");
-    }
+//    Text {
+//        id: label
+//        color: "black"
+//        wrapMode: Text.WordWrap
+//        text: "The background here is a squircle rendered with raw OpenGL using the 'beforeRender()' signal in QQuickWindow. This text label and its border is rendered using QML"
+//        anchors.right: parent.right
+//        anchors.left: parent.left
+//        anchors.bottom: parent.bottom
+//        anchors.margins: 20
+//    }
 }

@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>code.js</file>
         <file>classObject.qml</file>
+        <file>myitem.qml</file>
     </qresource>
 </RCC>

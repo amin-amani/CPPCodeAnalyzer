@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 QT += quick
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,11 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        MyImageViewer.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    squircle.cpp \
+    squirclerenderer.cpp
 
 HEADERS += \
-        mainwindow.h
+        MyImageViewer.h \
+        mainwindow.h \
+    squircle.h \
+    squirclerenderer.h
 
 FORMS += \
         mainwindow.ui
