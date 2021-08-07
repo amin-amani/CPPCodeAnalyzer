@@ -2,6 +2,7 @@
 #define TREEPOINTS_H
 #include <QVector>
 #include <algorithm>
+#include <QList>
 class CodeLocation
 {
 
@@ -15,6 +16,7 @@ public:
     }
 
 };
+
 class CodeTreeNode
 {
 public:
@@ -36,7 +38,7 @@ class TreePoints
     static bool FirstTreeLessThan(CodeTreeNode first,CodeTreeNode second);
     static bool SecondTreeLessThan(CodeTreeNode first, CodeTreeNode second);
 public:
-    QList<CodeLocation>InputCodeLocations;
+    QList<CodeLocation> InputCodeLocations;
     TreePoints();
     void AddPoint(int start,int end);
     CodeTreeNode GetTree();

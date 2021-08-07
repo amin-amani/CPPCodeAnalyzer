@@ -1,4 +1,5 @@
 QT -= gui
+QT +=quick
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -16,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
+    UI.cpp \
     parser.cpp \
     treepoints.cpp
 
@@ -26,4 +28,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     parser.h \
+    UI.h \
     treepoints.h
+
+RESOURCES += \
+    resources.qrc
+
