@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>Point.qml</file>
-        <file>main.qml</file>
-        <file>Line.qml</file>
+        <file>UI/qml/Point.qml</file>
+        <file>UI/qml/main.qml</file>
+        <file>UI/qml/Line.qml</file>
     </qresource>
 </RCC>
