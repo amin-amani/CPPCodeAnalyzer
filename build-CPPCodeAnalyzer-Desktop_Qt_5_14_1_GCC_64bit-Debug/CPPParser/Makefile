@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../../CPPCodeAnalyzer/CPPParser -I. -I../../../Qt5.14.1/5.14.1/gcc_64/include -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtQuick -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtQmlModels -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../CPPCodeAnalyzer/CPPParser -I. -I../../../Qt5.14.1/5.14.1/gcc_64/include -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtQuick -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtWidgets -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtQmlModels -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork -I../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/amin/Qt5.14.1/5.14.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = CPPParser1.0.0
 DISTDIR = /home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/CPPParser/.tmp/CPPParser1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/amin/Qt5.14.1/5.14.1/gcc_64/lib
-LIBS          = $(SUBLIBS) /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Quick.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Gui.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5QmlModels.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Qml.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Network.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Quick.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Widgets.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Gui.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5QmlModels.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Qml.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Network.so /home/amin/Qt5.14.1/5.14.1/gcc_64/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -266,6 +266,7 @@ DIST          = ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/resources.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/moc.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/unix/opengl.prf \
+		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/uic.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/unix/thread.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/qmake_use.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/file_copies.prf \
@@ -493,6 +494,7 @@ Makefile: ../../CPPCodeAnalyzer/CPPParser/CPPParser.pro ../../../Qt5.14.1/5.14.1
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/resources.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/moc.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/unix/opengl.prf \
+		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/uic.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/unix/thread.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/qmake_use.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/file_copies.prf \
@@ -706,6 +708,7 @@ Makefile: ../../CPPCodeAnalyzer/CPPParser/CPPParser.pro ../../../Qt5.14.1/5.14.1
 ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/resources.prf:
 ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/moc.prf:
 ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/unix/opengl.prf:
+../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/uic.prf:
 ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/unix/thread.prf:
 ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/qmake_use.prf:
 ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/file_copies.prf:
@@ -916,6 +919,8 @@ moc_UI.cpp: ../../CPPCodeAnalyzer/CPPParser/UI.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qjsvalue.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QTranslator \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qtranslator.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QEventLoop \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qeventloop.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/QQmlApplicationEngine \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qqmlapplicationengine.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qqmlengine.h \
@@ -932,12 +937,14 @@ moc_UI.cpp: ../../CPPCodeAnalyzer/CPPParser/UI.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qabstractsocket.h \
 		moc_predefs.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/bin/moc
-	/home/amin/Qt5.14.1/5.14.1/gcc_64/bin/moc $(DEFINES) --include /home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/CPPParser/moc_predefs.h -I/home/amin/Qt5.14.1/5.14.1/gcc_64/mkspecs/linux-g++ -I/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQuick -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtGui -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQmlModels -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQml -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtNetwork -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../CPPCodeAnalyzer/CPPParser/UI.h -o moc_UI.cpp
+	/home/amin/Qt5.14.1/5.14.1/gcc_64/bin/moc $(DEFINES) --include /home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/CPPParser/moc_predefs.h -I/home/amin/Qt5.14.1/5.14.1/gcc_64/mkspecs/linux-g++ -I/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQuick -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtWidgets -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtGui -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQmlModels -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQml -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtNetwork -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../CPPCodeAnalyzer/CPPParser/UI.h -o moc_UI.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
+compiler_uic_make_all:
+compiler_uic_clean:
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -1107,6 +1114,7 @@ main.o: ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../../Qt5.14.1/5.14.1/gcc_64
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQuick/QQuickView \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDateTime \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QEventLoop \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QTimer \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qtimer.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qbasictimer.h \
@@ -1258,6 +1266,8 @@ UI.o: ../../CPPCodeAnalyzer/CPPParser/UI.cpp ../../CPPCodeAnalyzer/CPPParser/UI.
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qjsvalue.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QTranslator \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qtranslator.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QEventLoop \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qeventloop.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/QQmlApplicationEngine \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qqmlapplicationengine.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qqmlengine.h \

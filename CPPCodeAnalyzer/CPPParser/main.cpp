@@ -6,12 +6,13 @@
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>
 
-
+#include <QApplication>
 #include <QTranslator>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtNetwork/QUdpSocket>
 #include "UI.h"
+
 UI ui;
 int main(int argc, char *argv[])
 {

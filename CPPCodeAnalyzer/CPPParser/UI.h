@@ -7,7 +7,6 @@
 #include <QtQuick/QQuickView>
 #include <QDateTime>
 #include <QtQml/qqmlcontext.h>
-#include <QTranslator>
 #include <stdlib.h>
 #include <stdio.h>
 #include <QEventLoop>
@@ -19,16 +18,9 @@
 class UI : public QObject
 {
     Q_OBJECT
-    QString frontStatus="Not connected";
-    QString rearStatus="Not connected";
-    QStringList chuteNameList;
-    QStringList chuteProcTempList;
-    QList<QStringList> delegatess;
-    QList<QString> chuteLabels;
     QQmlContext *ctx;
     QString sorterStatus;
-    int ModBusStatus;
-    QString UiIP = "192.168.1.100";
+
 
     //============================================================================================================================
 
@@ -50,18 +42,9 @@ public:
 
     QQuickItem *RootObject=nullptr;
     QQuickView  *View=nullptr;
-    QTranslator m_translator;
-
 
     explicit UI(QObject *parent = nullptr);
     Q_INVOKABLE void closeApp();
-    Q_INVOKABLE void sendSortingType(int chuteID, QList<QString> labels);
-    Q_INVOKABLE void setFeederSpeed(int chuteID, int speed);
-    Q_INVOKABLE void setChuteTimer(int chuteID, int hour, int minute);
-    Q_INVOKABLE void shutDownChute(int chuteID);
-    Q_INVOKABLE void rebootChute(int chuteID);
-
-
 
     QString name() const { return m_name; } // sample
     void setName(const QString &name) { m_name = name; } // sample
@@ -78,60 +61,13 @@ signals:
 
     void ChuteStartButtonClicked(int id);
     // =========================================================================
-    void SystemShutDownRequest();
-    // =========================================================================
-    void SystemRebootRequest();
-    // =========================================================================
-    void sendSortingTypeRequest(int chuteID, QList<QString> labels);
-    // =========================================================================
-    void SetFeederSpeed(int chuteID, int feederSpeed);
-    // =========================================================================
-    void SetElapsedTime(int chuteID, int hour, int minute);
-    // =========================================================================
-    void ChuteShutdown(int chuteID);
-    // =========================================================================
-    void ChuteReboot(int chuteID);
+
 
 
 public slots:
     void AddChute(int id);
     // =========================================================================
-    void DeleteChute(int id);
-    // =========================================================================
-    void UpdateChart(int64_t totalAccept, int64_t totalEject);
-    // =========================================================================
-    void ADDSortingType(QStringList labels, int chuteID);
-    // =========================================================================
-    void ClearAllSortingTypes();
-    // =========================================================================
-    void UpdateElapsedTime(int chuteID, QString elapsedTime);
-    // =========================================================================
-    void UpdateTotalValues(QString totalUpTime, QString totalObject, QString totalValve);
-    // =========================================================================
-    void SetTemperatureTable(int chuteID, int frontCamTemp, int rearCamTemp, int processorTemp);
-    // =========================================================================
-    void SetAirPressureTable(int pressure);
-// =========================================================================
-    void UpdateCameraStatus(int chuteID, int error);
-    // =========================================================================
-    void UpdateSerialPortStatus(int chuteID, int error);
-    // =========================================================================
-    void UpdateAirPressureStatus(int chuteID, int error);
-    // =========================================================================
-    void UpdateModBusStatus(int error);
-    // =========================================================================
-    void DisplayMessage(QString message);
-    // =========================================================================
-    void SetStartButtonState(int chuteID, int stat);
-    // =========================================================================
-    void DisplayProgressBar(bool status, bool visibility);
-    // =========================================================================
-    int startBtnClicked(int chuteID);
-    // =========================================================================
-    void shutdownUI();
-    // =========================================================================
-    void rebootUI();
-    // =========================================================================
+
 
 };
 
