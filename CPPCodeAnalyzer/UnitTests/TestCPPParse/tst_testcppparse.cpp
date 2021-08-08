@@ -20,6 +20,7 @@ private slots:
     void CheckIfNullReturnHasNoFunction();
     void CheckIfEmptyStringReturnHasNoFunction();
     void test_MainAndFunction();
+    void test_CanCheckClass();
     void test_SimpleMainAndInclude();
     void test_MainAndFunctionAnd2Includes();
 
@@ -103,6 +104,17 @@ void TestCPPParse::test_MainAndFunction()
     QStringList testResults=parser.GetFunctionNames();
     qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
     QVERIFY(preDefinedResults==testResults);
+}
+
+void TestCPPParse::test_CanCheckClass()
+{
+
+    Parser parser;
+    parser.SetFileName("../../../TestModels/SimpleClass.cpp");
+
+    qDebug()<<parser.GetClassNames();
+
+    QVERIFY(1==2);
 }
 
 void TestCPPParse::test_MainAndFunctionAnd2Includes()

@@ -22,6 +22,11 @@ public:
     QList<QPoint> GetParentBraces(QString input);
     QStringList GetLineComments();
     QStringList GetBlockComments();
+    QStringList GetClassNames();
+    QStringList GetIncludeGaurds(QString content);
+    QStringList GetDefines();
+    QString RemoveEmptyLines(QString content);
+    QString GetClassSignature(QString contect);
 };
 
 #endif // PARSER_H

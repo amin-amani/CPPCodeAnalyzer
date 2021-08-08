@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../../CPPCodeAnalyzer/CPPParser/UI.h"
+#include "../../CPPCodeAnalyzer/CPPParser/UI/UI.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
