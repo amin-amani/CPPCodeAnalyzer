@@ -23,12 +23,12 @@ public:
     QList<QPoint> GetParentBraces(QString input);
     QStringList GetLineComments();
     QStringList GetBlockComments();
-    QStringList GetClassNames();
+    QList<CPPClass> GetAllClasses();
     QStringList GetIncludeGaurds(QString content);
     QStringList GetDefines();
     QString RemoveEmptyLines(QString content);
     QString GetClasses(QString contect);
-    CPPClass GetClassSignature(QString content);
+    QList<CPPClass> GetClassSignature(QString content);
     CPPClass GetClassInheritances(QString content);
 };
 

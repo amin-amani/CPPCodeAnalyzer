@@ -61,16 +61,16 @@ void TestCPPParse::test_case1()
 //======================================================================
 void TestCPPParse::CheckIfNullReturnHasNoFunction()
 {
-Parser parser;
-QStringList result=parser.GetFunctionNames();
-QVERIFY2(result.length()==0,"Null doesnt return empty");
+    Parser parser;
+    QStringList result=parser.GetFunctionNames();
+    QVERIFY2(result.length()==0,"Null doesnt return empty");
 }
 //======================================================================
 void TestCPPParse::CheckIfEmptyStringReturnHasNoFunction()
 {
-  Parser parser;
-QStringList result=parser.GetFunctionNames();
-QVERIFY2(result.length()==0,"empty string doesnt return empty");
+    Parser parser;
+    QStringList result=parser.GetFunctionNames();
+    QVERIFY2(result.length()==0,"empty string doesnt return empty");
 }
 //======================================================================
 QStringList TestCPPParse::GetTestFunctionResultsFromFile(QString fileName)
@@ -88,12 +88,12 @@ QStringList TestCPPParse::GetTestFunctionResultsFromFile(QString fileName)
 void TestCPPParse::test_SimpleMainAndInclude()
 {
 
-Parser parser;
-parser.SetFileName("../../../TestModels/SimpleMain.cpp");
-QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/SimpleMain.cpp.res");
-QStringList testResults=parser.GetFunctionNames();
-qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults;
-QVERIFY(preDefinedResults==testResults);
+    Parser parser;
+    parser.SetFileName("../../../TestModels/SimpleMain.cpp");
+    QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/SimpleMain.cpp.res");
+    QStringList testResults=parser.GetFunctionNames();
+    qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults;
+    QVERIFY(preDefinedResults==testResults);
 }
 
 
@@ -112,10 +112,13 @@ void TestCPPParse::test_CanCheckClass()
 
     Parser parser;
     parser.SetFileName("../../../TestModels/SimpleClass.cpp");
+    QList<CPPClass> cs=parser.GetAllClasses();
+//    QVERIFY(cs[0].Name=="UI");
 
-    qDebug()<<parser.GetClassNames();
-
-//    QVERIFY(1==2);
+    parser.SetFileName("../../../TestModels/2classes.cpp");
+    cs=parser.GetAllClasses();
+//    QVERIFY(cs[0].Name=="UI");
+  //  QVERIFY(cs[1].Name=="UI2");
 }
 
 void TestCPPParse::test_MainAndFunctionAnd2Includes()
@@ -145,18 +148,18 @@ void TestCPPParse::test_BracesParsWithEmptyAndNull()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("");
     QVERIFY2(bracesList.count()==0,"empty return must be no braces");
-     bracesList= parser.GetBraces(NULL);
-     QVERIFY2(bracesList.count()==0,"null return must be no braces");
+    bracesList= parser.GetBraces(NULL);
+    QVERIFY2(bracesList.count()==0,"null return must be no braces");
 }
 
 void TestCPPParse::test_BracesPraseSimplest()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("{in brace}");
 
-  QVERIFY2(bracesList.count()==1,"no answer");
+    QVERIFY2(bracesList.count()==1,"no answer");
 
-//  if(bracesList.count()>0)qDebug()<<"==>"<<bracesList[0];
-  QVERIFY2(bracesList[0]=="{in brace}","null return must be no braces");
+    //  if(bracesList.count()>0)qDebug()<<"==>"<<bracesList[0];
+    QVERIFY2(bracesList[0]=="{in brace}","null return must be no braces");
 }
 
 void TestCPPParse::test_BracesPraseMultiple()
@@ -169,23 +172,23 @@ void TestCPPParse::test_BracesPraseMultiple()
 void TestCPPParse::test_BracesPraseNested()
 {  Parser parser;
     QStringList bracesList= parser.GetBraces("{in brace1{in brace2}}");
-  QVERIFY2(bracesList[1]=="{in brace1{in brace2}}","outside brace error");
-  QVERIFY2(bracesList[0]=="{in brace2}","inside brace error");
+    QVERIFY2(bracesList[1]=="{in brace1{in brace2}}","outside brace error");
+    QVERIFY2(bracesList[0]=="{in brace2}","inside brace error");
 
 }
 
 void TestCPPParse::test_GetParentBraces()
 {
-  Parser parser;
+    Parser parser;
     QList<QPoint> braces=parser.GetParentBraces(NULL);
     QVERIFY(braces.length()==0);
 
     braces=parser.GetParentBraces("");
     QVERIFY(braces.length()==0);
 
-     braces=parser.GetParentBraces("{hello}");
-   QVERIFY(braces.length()>0);
-   QVERIFY(braces[0].x()==0 && braces[0].y()==6 );
+    braces=parser.GetParentBraces("{hello}");
+    QVERIFY(braces.length()>0);
+    QVERIFY(braces[0].x()==0 && braces[0].y()==6 );
 
     braces=parser.GetParentBraces("q{myworld{hello}g}r");
     QVERIFY2(braces.length()>0,"step2 len");
@@ -206,20 +209,32 @@ void TestCPPParse::test_ClassSignature()
 {
     Parser parser;
 
-    CPPClass result= parser.GetClassSignature("class test{};");
-    QVERIFY2(result.Name=="test","test_ClassSignature1");
+     QList <CPPClass> result= parser.GetClassSignature("class test{};");
+    QVERIFY2(result[0].Name=="test","simplest class extract error");
 
     result= parser.GetClassSignature("class test");
-    QVERIFY2(result.Name=="test","test_ClassSignature2");
+    QVERIFY2(result[0].Name=="test",("simplest class extract error"+result[0].Name).toStdString().c_str());
 
     result= parser.GetClassSignature("class UI : public QObject{};");
-    QVERIFY2(result.Name=="UI","test_ClassSignature");
-    QVERIFY2(result.PulicParents[0]=="QObject","test_ClassSignature3");
+    QVERIFY2(result[0].Name=="UI","class with public inheritance extract error");
+    QVERIFY2(result[0].PulicParents[0]=="QObject","class with public inheritance extract error");
 
-    result= parser.GetClassSignature("class UI : public QObject, other{};");
-    QVERIFY2(result.Name=="UI","test_ClassSignature");
-    QVERIFY2(result.PulicParents[0]=="QObject","test_ClassSignature4");
-     QVERIFY2(result.PrivateParents[0]=="other","test_ClassSignature");
+    result= parser.GetClassSignature("class UI : public QObject, private other{};");
+    QVERIFY2(result[0].Name=="UI","class with public and private inheritance extract error");
+    QVERIFY2(result[0].PulicParents[0]=="QObject","class with public and private inheritance extract error");
+    QVERIFY2(result[0].PrivateParents[0]=="other","class with public and private inheritance extract error");
+
+    result= parser.GetClassSignature("class UI : public QObject,protected other{};");
+    QVERIFY2(result[0].Name=="UI","class with public and protected inheritance extract error");
+    QVERIFY2(result[0].PulicParents[0]=="QObject","class with public and protected inheritance extract error");
+    QVERIFY2(result[0].ProtectedParents[0]=="other","class with public and protected inheritance extract error");
+
+    result= parser.GetClassSignature("class UI : public QObject,tree, calc ,protected other{};");
+    QVERIFY2(result[0].Name=="UI","class with public and private and protected inheritance extract error");
+    QVERIFY2(result[0].PulicParents[0]=="QObject","class with public and private and protected inheritance extract error");
+    QVERIFY2(result[0].ProtectedParents[0]=="other","class with public and private and protected inheritance extract error");
+    QVERIFY2(result[0].PrivateParents[0]=="tree","class with public and private and protected inheritance extract error");
+    QVERIFY2(result[0].PrivateParents[1]=="calc","class with public and private and protected inheritance extract error");
 
 
 }
