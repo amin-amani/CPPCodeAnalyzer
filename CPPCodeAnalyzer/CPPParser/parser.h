@@ -8,6 +8,7 @@
 #include <QRegularExpression>
 #include <QFile>
 #include <QPoint>
+#include "Types.h"
 class Parser
 {
     QString _fileName;
@@ -27,7 +28,8 @@ public:
     QStringList GetDefines();
     QString RemoveEmptyLines(QString content);
     QString GetClasses(QString contect);
-    QStringList GetClassSignature(QString content);
+    CPPClass GetClassSignature(QString content);
+    CPPClass GetClassInheritances(QString content);
 };
 
 #endif // PARSER_H

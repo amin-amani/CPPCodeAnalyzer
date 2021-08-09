@@ -59,7 +59,7 @@ QStringList Parser::GetIncludes()
 QStringList Parser::GetIncludeGaurds(QString content)
 {
     QStringList result;
-   QStringList fileLines=content.split('\n');
+    QStringList fileLines=content.split('\n');
 
     for (int line=0;line<fileLines.count();line++) {
         QString currentLine=fileLines[line].trimmed();
@@ -181,24 +181,77 @@ QStringList Parser::GetBlockComments()
 
 QString Parser::RemoveEmptyLines(QString content)
 {
-      QStringList fileLines=content.split('\n');
-      QString result;
-      foreach(QString line ,fileLines)
-      {
-          if(line.isEmpty())continue ;
-          result+=line;
+    QStringList fileLines=content.split('\n');
+    QString result;
+    foreach(QString line ,fileLines)
+    {
+        if(line.isEmpty())continue ;
+        result+=line;
 
 
-      }
-      return  result;
+    }
+    return  result;
 
 
 }
-QStringList Parser::GetClassSignature(QString content)
+//===============================================================================
+
+CPPClass Parser::GetClassInheritances(QString content)
 {
+    CPPClass result;
 
-    return {" "};
+    if(!content.contains(":"))
+    {
+        return  result;
+    }
+
+
+    QString inheritances=content.split(":")[1];
+ qDebug()<<"start.........................................>>"<<inheritances;
+        foreach(QString item, inheritances.split(","))
+        {
+            if(item.contains("public "))
+            {
+                result.PulicParents.append(item.split("public ")[1].trimmed());
+            }
+            if(item.contains("private "))
+            {
+                result.PrivateParents.append(item.split("private ")[1].trimmed());
+            }
+            if(item.contains("protcted "))
+            {
+                result.ProtectedParents.append(item.split("protcted ")[1].trimmed());
+            }
+            if(!item.contains("public ") && !item.contains("protcted ") && !item.contains("private "))
+            {
+
+                 result.PrivateParents.append(item.trimmed());
+            }
+        }
+
+ qDebug()<<"end.........................................>>"<<result.PulicParents;
+
+    return result;
 }
+//===============================================================================
+
+CPPClass Parser::GetClassSignature(QString content)
+{
+    CPPClass result;
+    content=content.replace("class ","");
+    content=content.split("{")[0];
+    result.Name=content.split(":")[0].trimmed();
+
+    CPPClass signatureResult=GetClassInheritances(content);
+    result.PulicParents=signatureResult.PulicParents;
+    result.PrivateParents=signatureResult.PrivateParents;
+    result.ProtectedParents=signatureResult.ProtectedParents;
+
+
+    return result;
+}
+//===============================================================================
+
 QString Parser::GetClasses(QString contect)
 {
 
@@ -207,11 +260,11 @@ QString Parser::GetClasses(QString contect)
     QStringList classtext= contect.split("class ");
     if(classtext.length()>0)
     {
-      QStringList classDef= classtext[1].split("{");
-      if(classDef.length()>0)
-      {
-           qDebug()<<classDef[0];
-      }
+        QStringList classDef= classtext[1].split("{");
+        if(classDef.length()>0)
+        {
+            qDebug()<<classDef[0];
+        }
 
 
 
@@ -260,7 +313,7 @@ QStringList Parser::GetClassNames()
     text=RemoveEmptyLines(text);
     GetClasses(text);
     result.append(text);
-        return  result;
+    return  result;
 }
 //===============================================================================
 QStringList Parser::GetFunctionNames()

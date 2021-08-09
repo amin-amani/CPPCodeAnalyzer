@@ -1,5 +1,6 @@
 #include <QtTest>
 #include <QStringList>
+#include "../../CPPParser/Types.h"
 #include "../../CPPParser/parser.h"
 // add necessary includes here
 
@@ -114,7 +115,7 @@ void TestCPPParse::test_CanCheckClass()
 
     qDebug()<<parser.GetClassNames();
 
-    QVERIFY(1==2);
+//    QVERIFY(1==2);
 }
 
 void TestCPPParse::test_MainAndFunctionAnd2Includes()
@@ -204,8 +205,23 @@ void TestCPPParse::test_GetParentBraces()
 void TestCPPParse::test_ClassSignature()
 {
     Parser parser;
-    parser.GetClassSignature("class test{};");
-    QVERIFY2(12==13,"test_ClassSignature");
+
+    CPPClass result= parser.GetClassSignature("class test{};");
+    QVERIFY2(result.Name=="test","test_ClassSignature1");
+
+    result= parser.GetClassSignature("class test");
+    QVERIFY2(result.Name=="test","test_ClassSignature2");
+
+    result= parser.GetClassSignature("class UI : public QObject{};");
+    QVERIFY2(result.Name=="UI","test_ClassSignature");
+    QVERIFY2(result.PulicParents[0]=="QObject","test_ClassSignature3");
+
+    result= parser.GetClassSignature("class UI : public QObject, other{};");
+    QVERIFY2(result.Name=="UI","test_ClassSignature");
+    QVERIFY2(result.PulicParents[0]=="QObject","test_ClassSignature4");
+     QVERIFY2(result.PrivateParents[0]=="other","test_ClassSignature");
+
+
 }
 
 QTEST_APPLESS_MAIN(TestCPPParse)

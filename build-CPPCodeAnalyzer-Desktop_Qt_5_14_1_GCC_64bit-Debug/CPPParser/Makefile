@@ -274,7 +274,8 @@ DIST          = ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/lex.prf \
-		../../CPPCodeAnalyzer/CPPParser/CPPParser.pro ../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
+		../../CPPCodeAnalyzer/CPPParser/CPPParser.pro ../../CPPCodeAnalyzer/CPPParser/Types.h \
+		../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
 		../../CPPCodeAnalyzer/CPPParser/parser.h \
 		../../CPPCodeAnalyzer/CPPParser/treepoints.h ../../CPPCodeAnalyzer/CPPParser/UI/UI.cpp \
 		../../CPPCodeAnalyzer/CPPParser/main.cpp \
@@ -734,7 +735,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt5.14.1/5.14.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/UI/UI.h ../../CPPCodeAnalyzer/CPPParser/parser.h ../../CPPCodeAnalyzer/CPPParser/treepoints.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/Types.h ../../CPPCodeAnalyzer/CPPParser/UI/UI.h ../../CPPCodeAnalyzer/CPPParser/parser.h ../../CPPCodeAnalyzer/CPPParser/treepoints.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../CPPCodeAnalyzer/CPPParser/UI/UI.cpp ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../CPPCodeAnalyzer/CPPParser/treepoints.cpp $(DISTDIR)/
 
 
@@ -1276,7 +1277,20 @@ main.o: ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../../Qt5.14.1/5.14.1/gcc_64
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/QUdpSocket \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qudpsocket.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qabstractsocket.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qhostaddress.h
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qhostaddress.h \
+		../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QMetaObject \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQuick/QQuickView \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDateTime \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QEventLoop \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QTimer \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QElapsedTimer \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/QNetworkInterface \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qnetworkinterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../CPPCodeAnalyzer/CPPParser/main.cpp
 
 parser.o: ../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../CPPCodeAnalyzer/CPPParser/parser.h \
@@ -1354,7 +1368,9 @@ parser.o: ../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../CPPCodeAnalyzer/CPPPa
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QFile \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfile.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfiledevice.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint \
+		../../CPPCodeAnalyzer/CPPParser/Types.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parser.o ../../CPPCodeAnalyzer/CPPParser/parser.cpp
 
 treepoints.o: ../../CPPCodeAnalyzer/CPPParser/treepoints.cpp ../../CPPCodeAnalyzer/CPPParser/treepoints.h \
