@@ -350,8 +350,7 @@ QList<CPPClass> Parser::GetAllClasses()
 
 
      QList<CPPClass> cs= GetClassSignature(text);
-//    result.append(cs);
-//     qDebug()<<"------------------------------------------->"<<cs.Name;
+
      return  cs;
 }
 //===============================================================================

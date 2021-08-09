@@ -242,6 +242,8 @@ void TestCPPParse::test_ClassSignature()
     QVERIFY2(result[0].PrivateParents[1]=="calc","class with public and private and protected inheritance extract error");
 
 
+
+
 }
 
 QTEST_APPLESS_MAIN(TestCPPParse)

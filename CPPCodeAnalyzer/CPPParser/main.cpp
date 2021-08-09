@@ -11,7 +11,7 @@
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtNetwork/QUdpSocket>
-#include "UI/UI.h""
+#include "UI/UI.h"
 
 UI ui;
 int main(int argc, char *argv[])
