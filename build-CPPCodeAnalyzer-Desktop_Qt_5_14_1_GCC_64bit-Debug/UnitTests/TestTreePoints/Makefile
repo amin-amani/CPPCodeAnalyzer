@@ -1434,6 +1434,12 @@ treepoints.o: ../../../CPPCodeAnalyzer/CPPParser/treepoints.cpp ../../../CPPCode
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qpair.h \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qcontainertools_impl.h \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QList \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qstringmatcher.h \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QtAlgorithms
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o treepoints.o ../../../CPPCodeAnalyzer/CPPParser/treepoints.cpp
 

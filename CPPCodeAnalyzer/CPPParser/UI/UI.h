@@ -2,6 +2,8 @@
 #define UI_H
 
 #include <QObject>
+#include <QDir>
+#include <QDirIterator>
 #include <QDebug>
 #include <QMetaObject>
 #include <QtQuick/QQuickView>
@@ -14,12 +16,14 @@
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QtNetwork/QNetworkInterface>
-
+#include "parser.h"
+#include "Types.h"
 class UI : public QObject
 {
     Q_OBJECT
     QQmlContext *ctx;
     QString sorterStatus;
+    Parser parser;
 
 
     //============================================================================================================================
@@ -57,6 +61,7 @@ public:
 
     void WaitMs(int ms);
     void Init();
+    QStringList GetDtatSetFilesList(QString path);
 signals:
 
     void ChuteStartButtonClicked(int id);

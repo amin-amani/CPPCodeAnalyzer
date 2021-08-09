@@ -1069,6 +1069,7 @@ tst_testcppparse.moc: ../../../CPPCodeAnalyzer/UnitTests/TestCPPParse/tst_testcp
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtWidgets/QSizePolicy \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QMetaEnum \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtTest/qttestversion.h \
+		../../../CPPCodeAnalyzer/CPPParser/Types.h \
 		../../../CPPCodeAnalyzer/CPPParser/parser.h \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegExp \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QByteArray \
@@ -1396,6 +1397,7 @@ tst_testcppparse.o: ../../../CPPCodeAnalyzer/UnitTests/TestCPPParse/tst_testcppp
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtWidgets/QSizePolicy \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QMetaEnum \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtTest/qttestversion.h \
+		../../../CPPCodeAnalyzer/CPPParser/Types.h \
 		../../../CPPCodeAnalyzer/CPPParser/parser.h \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegExp \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QByteArray \
@@ -1480,7 +1482,9 @@ parser.o: ../../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../../CPPCodeAnalyzer
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QFile \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfile.h \
 		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfiledevice.h \
-		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint \
+		../../../CPPCodeAnalyzer/CPPParser/Types.h \
+		../../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parser.o ../../../CPPCodeAnalyzer/CPPParser/parser.cpp
 
 ####### Install

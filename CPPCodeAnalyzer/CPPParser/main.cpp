@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     QQuickView view;
     view.engine()->rootContext()->setContextProperty("ui", &ui);
-    view.setSource(QUrl(QLatin1String("qrc:/main.qml")));
+    view.setSource(QUrl(QLatin1String("qrc:/UI/qml/main.qml")));
     ui.RootObject=view.rootObject();
     ui.View=&view;
     ui.Init();

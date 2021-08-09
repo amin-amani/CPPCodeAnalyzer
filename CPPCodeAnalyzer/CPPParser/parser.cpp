@@ -163,18 +163,27 @@ QStringList Parser::GetBlockComments()
     {
 
 
-        if(_fileContent[i]=='/' && _fileContent[i+1]=='*' && startInex<0)startInex=i;
-        if(_fileContent[i]=='*' && _fileContent[i+1]=='/' && startInex>=0 && comment.length()>3)
+        if(_fileContent[i]=='/' && _fileContent[i+1]=='*' && startInex<0)
+        {
+            startInex=i;
+
+
+
+        }
+            if(_fileContent[i]=='*' && _fileContent[i+1]=='/' && startInex>=0 && comment.length()>3)
         {
             comment=comment+_fileContent[i]+_fileContent[i+1];
             result.append(comment);
+
+
             startInex=-1;
             comment="";
 
         }
-        if(startInex>0)comment+=_fileContent[i];
+        if(startInex>=0)comment+=_fileContent[i];
 
     }
+
     return  result;
 
 }
@@ -199,6 +208,9 @@ QString Parser::RemoveEmptyLines(QString content)
 CPPClass Parser::GetClassInheritances(QString content)
 {
     CPPClass result;
+    if(!content.contains("class "))
+        return result;
+
         content=content.split("class ")[1];
         content=content.split("{")[0];
         result.Name=content.split(":")[0].trimmed();
@@ -242,8 +254,15 @@ CPPClass Parser::GetClassInheritances(QString content)
 {
 
     CPPClass result;
-    QList <CPPClass> resultList;
+     QList <CPPClass> resultList;
+
+    if(content.isNull())return  resultList;
+    if(content.isEmpty())return  resultList;
+
+
+
      QList<QPoint> parentBraces=GetParentBraces(content);
+
 
      if(parentBraces.count()<1)
      {
@@ -265,7 +284,7 @@ CPPClass Parser::GetClassInheritances(QString content)
 
      for(int i=1;i< parentBraces.count() ;i++)
      {
-         qDebug()<<"===================================+mid>"<<content.mid(parentBraces[i-1].y(),parentBraces[i].x());
+
          CPPClass signatureResult=GetClassInheritances(content.mid(parentBraces[i-1].y(),parentBraces[i].x()));
          result.Name=signatureResult.Name;
          result.PulicParents=signatureResult.PulicParents;
@@ -274,12 +293,8 @@ CPPClass Parser::GetClassInheritances(QString content)
          resultList.append(result);
 
      }
-    // qDebug()<<"===================================+0>"<<resultList[0].Name;
-   //  if(resultList.count()>0)qDebug()<<"===================================+1>"<<resultList[1].Name;
 
-//    content=content.replace("class ","");
-//    content=content.split("{")[0];
-//    result.Name=content.split(":")[0].trimmed();
+
 
 
 
@@ -347,8 +362,12 @@ QList<CPPClass> Parser::GetAllClasses()
         text=text.replace(define,"");
     }
     text=RemoveEmptyLines(text);
+QFile out("out.txt");
+out.open(QFile::ReadWrite);
+out.write(text.toLatin1());
+out.close();
 
-
+//qDebug()<<"==========================="<<text;
      QList<CPPClass> cs= GetClassSignature(text);
 
      return  cs;

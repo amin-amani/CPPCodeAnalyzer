@@ -1,6 +1,31 @@
 #include "UI.h"
 
+QStringList UI::GetDtatSetFilesList(QString path)
+{
+    QStringList result;
+    QStringList filters={".h",".hpp"};
+    QDirIterator directoryIterator(path, QDirIterator::Subdirectories);
+    while (directoryIterator.hasNext())
+    {
+        QString fname= directoryIterator.next();
+        if(fname.contains("/."))
+            continue;
 
+        for(int i=0;i<filters.count();i++)
+        {
+
+            if(fname.endsWith(filters[i]))
+            {
+                result.append(fname);
+
+
+                break;
+            }
+
+        }
+    }
+    return result;
+}
 // =========================================================================
 UI::UI(QObject *parent) : QObject(parent)
 {
@@ -21,6 +46,19 @@ void UI::Init()
 //    qDebug()<<"INIT START";
     View->showFullScreen();
     connect(View->engine(), SIGNAL(quit()), this, SLOT(closeApp()));
+
+
+    QStringList files= GetDtatSetFilesList("/home/amin/SorterNew/src");
+    for(int i=0;i<files.count();i++)
+    {
+        qDebug()<<"in file:"<<files[i];
+        parser.SetFileName(files[i]);
+        QList<CPPClass> classes= parser.GetAllClasses();
+        if(classes.count()>0)
+            qDebug()<<classes[0].Name;
+
+    }
+
 }
 // =========================================================================
 void UI::WaitMs(int ms)

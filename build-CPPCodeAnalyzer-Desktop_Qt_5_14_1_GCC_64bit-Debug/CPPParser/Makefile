@@ -832,15 +832,22 @@ moc_UI.cpp: ../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDir \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdir.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfile.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDirIterator \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdiriterator.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDebug \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdebug.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qhash.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qmap.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qtextstream.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qiodevice.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qlocale.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qvariant.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qshareddata.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qset.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qsharedpointer.h \
@@ -902,8 +909,6 @@ moc_UI.cpp: ../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui/qkeysequence.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qurl.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qurlquery.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfile.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfiledevice.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qqml.h \
@@ -934,6 +939,16 @@ moc_UI.cpp: ../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../CPPCodeAnalyzer/CPPParser/parser.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QString \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QStringList \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegExp \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QByteArray \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegularExpression \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QFile \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint \
+		../../CPPCodeAnalyzer/CPPParser/Types.h \
 		moc_predefs.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/bin/moc
 	/home/amin/Qt5.14.1/5.14.1/gcc_64/bin/moc $(DEFINES) --include /home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/CPPParser/moc_predefs.h -I/home/amin/Qt5.14.1/5.14.1/gcc_64/mkspecs/linux-g++ -I/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQuick -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtWidgets -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtGui -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQmlModels -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtQml -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtNetwork -I/home/amin/Qt5.14.1/5.14.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../CPPCodeAnalyzer/CPPParser/UI/UI.h -o moc_UI.cpp
@@ -1008,15 +1023,22 @@ UI.o: ../../CPPCodeAnalyzer/CPPParser/UI/UI.cpp ../../CPPCodeAnalyzer/CPPParser/
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDir \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdir.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfile.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDirIterator \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdiriterator.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDebug \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdebug.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qhash.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qmap.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qtextstream.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qiodevice.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qlocale.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qvariant.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qshareddata.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qset.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qsharedpointer.h \
@@ -1078,8 +1100,6 @@ UI.o: ../../CPPCodeAnalyzer/CPPParser/UI/UI.cpp ../../CPPCodeAnalyzer/CPPParser/
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui/qkeysequence.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qurl.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qurlquery.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfile.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfiledevice.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQml/qqml.h \
@@ -1109,7 +1129,17 @@ UI.o: ../../CPPCodeAnalyzer/CPPParser/UI/UI.cpp ../../CPPCodeAnalyzer/CPPParser/
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/QNetworkInterface \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qhostaddress.h \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qabstractsocket.h
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../CPPCodeAnalyzer/CPPParser/parser.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QString \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QStringList \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegExp \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QByteArray \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegularExpression \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QFile \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint \
+		../../CPPCodeAnalyzer/CPPParser/Types.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UI.o ../../CPPCodeAnalyzer/CPPParser/UI/UI.cpp
 
 main.o: ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QCoreApplication \
@@ -1279,6 +1309,11 @@ main.o: ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../../Qt5.14.1/5.14.1/gcc_64
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qabstractsocket.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../CPPCodeAnalyzer/CPPParser/UI/UI.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDir \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdir.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDirIterator \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qdiriterator.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QMetaObject \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtQuick/QQuickView \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QDateTime \
@@ -1290,7 +1325,17 @@ main.o: ../../CPPCodeAnalyzer/CPPParser/main.cpp ../../../Qt5.14.1/5.14.1/gcc_64
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QElapsedTimer \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qelapsedtimer.h \
 		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/QNetworkInterface \
-		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qnetworkinterface.h
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
+		../../CPPCodeAnalyzer/CPPParser/parser.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QString \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QStringList \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegExp \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QByteArray \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QRegularExpression \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QFile \
+		../../../Qt5.14.1/5.14.1/gcc_64/include/QtCore/QPoint \
+		../../CPPCodeAnalyzer/CPPParser/Types.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../CPPCodeAnalyzer/CPPParser/main.cpp
 
 parser.o: ../../CPPCodeAnalyzer/CPPParser/parser.cpp ../../CPPCodeAnalyzer/CPPParser/parser.h \
