@@ -29,7 +29,7 @@ private slots:
     void test_BracesPraseMultiple();
     void test_BracesPraseNested();
     void test_GetParentBraces();
-
+    void test_ClassSignature();
     void test_GetFunctionsWithComments();
 };
 
@@ -199,6 +199,13 @@ void TestCPPParse::test_GetParentBraces()
 
     QVERIFY2(braces.length()==0,"step4 len");
 
+}
+
+void TestCPPParse::test_ClassSignature()
+{
+    Parser parser;
+    parser.GetClassSignature("class test{};");
+    QVERIFY2(12==13,"test_ClassSignature");
 }
 
 QTEST_APPLESS_MAIN(TestCPPParse)

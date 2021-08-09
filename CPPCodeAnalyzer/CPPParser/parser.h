@@ -26,7 +26,8 @@ public:
     QStringList GetIncludeGaurds(QString content);
     QStringList GetDefines();
     QString RemoveEmptyLines(QString content);
-    QString GetClassSignature(QString contect);
+    QString GetClasses(QString contect);
+    QStringList GetClassSignature(QString content);
 };
 
 #endif // PARSER_H

@@ -66,7 +66,6 @@ QStringList Parser::GetIncludeGaurds(QString content)
 
         int idx1= currentLine.indexOf("#ifndef",0);
         int idx2= currentLine.indexOf("#endif",0);
-        qDebug()<<currentLine<<idx2;
         if(idx1<0 && idx2<0)continue;
 
         result.append(currentLine);
@@ -195,15 +194,26 @@ QString Parser::RemoveEmptyLines(QString content)
 
 
 }
-QString Parser::GetClassSignature(QString contect)
+QStringList Parser::GetClassSignature(QString content)
+{
+
+    return {" "};
+}
+QString Parser::GetClasses(QString contect)
 {
 
 
 
-    QStringList classtext= contect.split("class");
+    QStringList classtext= contect.split("class ");
     if(classtext.length()>0)
     {
       QStringList classDef= classtext[1].split("{");
+      if(classDef.length()>0)
+      {
+           qDebug()<<classDef[0];
+      }
+
+
 
     }
     return  "";
@@ -248,7 +258,7 @@ QStringList Parser::GetClassNames()
         text=text.replace(define,"");
     }
     text=RemoveEmptyLines(text);
-GetClassSignature(text);
+    GetClasses(text);
     result.append(text);
         return  result;
 }
