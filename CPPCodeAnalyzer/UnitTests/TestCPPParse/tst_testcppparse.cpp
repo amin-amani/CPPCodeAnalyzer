@@ -113,12 +113,17 @@ void TestCPPParse::test_CanCheckClass()
     Parser parser;
     parser.SetFileName("../../../TestModels/SimpleClass.cpp");
     QList<CPPClass> cs=parser.GetAllClasses();
-//    QVERIFY(cs[0].Name=="UI");
+    QVERIFY(cs[0].Name=="UI");
 
     parser.SetFileName("../../../TestModels/2classes.cpp");
     cs=parser.GetAllClasses();
-//    QVERIFY(cs[0].Name=="UI");
-  //  QVERIFY(cs[1].Name=="UI2");
+    QVERIFY(cs[0].Name=="UI");
+    QVERIFY(cs[1].Name=="UI2");
+    parser.SetFileName("../../../TestModels/realclass1.h");
+    cs=parser.GetAllClasses();
+    QVERIFY2(cs[0].Name=="ObjectDetection",cs[0].Name.toStdString().c_str());
+    QVERIFY2(cs[0].PulicParents[0]=="QObject",cs[0].PulicParents[0].toStdString().c_str());
+    QVERIFY2(cs[0].PulicParents[1]=="QRunnable",cs[0].PulicParents[1].toStdString().c_str());
 }
 
 void TestCPPParse::test_MainAndFunctionAnd2Includes()
