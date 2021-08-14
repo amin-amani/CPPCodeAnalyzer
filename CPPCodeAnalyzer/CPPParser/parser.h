@@ -18,18 +18,20 @@ public:
     QStringList GetFunctionNames();
     Parser(QString fileName);
     void SetFileName(QString fileName);
-    QStringList GetIncludes();
+    QStringList GetIncludes(QString content);
     QStringList GetBraces(QString input);
     QList<QPoint> GetParentBraces(QString input);
-    QStringList GetLineComments();
-    QStringList GetBlockComments();
+    QStringList GetLineComments(QString content);
+    QStringList GetBlockComments(QString content);
     QList<CPPClass> GetAllClasses();
     QStringList GetIncludeGaurds(QString content);
-    QStringList GetDefines();
+    QStringList GetDefines(QString content);
     QString RemoveEmptyLines(QString content);
     QString GetClasses(QString contect);
     QList<CPPClass> GetClassSignature(QString content);
     CPPClass GetClassInheritances(QString content);
+    QString ReplaceEndlineTolinuxFormat(QString content);
+    QStringList GetClassesFromText(QString content);
 };
 
 #endif // PARSER_H

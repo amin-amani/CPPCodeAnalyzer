@@ -48,14 +48,18 @@ void UI::Init()
     connect(View->engine(), SIGNAL(quit()), this, SLOT(closeApp()));
 
 
-    QStringList files= GetDtatSetFilesList("/home/amin/SorterNew/src");
+    QStringList files= GetDtatSetFilesList("E:\\Sorter Files\\SorterNew_trt8_new git\\SorterNew\\src");
     for(int i=0;i<files.count();i++)
     {
         qDebug()<<"in file:"<<files[i];
         parser.SetFileName(files[i]);
         QList<CPPClass> classes= parser.GetAllClasses();
-        if(classes.count()>0)
-            qDebug()<<classes[0].Name;
+
+            foreach(CPPClass c,classes)
+            {
+              qDebug()<<c.Name;
+            }
+
 
     }
 

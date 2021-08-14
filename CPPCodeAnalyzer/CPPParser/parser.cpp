@@ -32,13 +32,13 @@ void Parser::SetFileName(QString fileName)
 
 }
 //===============================================================================
-QStringList Parser::GetIncludes()
+QStringList Parser::GetIncludes(QString content)
 {
     QStringList result;
-    QList<QByteArray> fileLines=_fileContent.split('\n');
+    QStringList fileLines=content.split('\n');
 
     for (int line=0;line<fileLines.count();line++) {
-        QString currentLine=QString::fromLatin1(fileLines[line]).trimmed().replace(" ","");
+        QString currentLine=fileLines[line].trimmed().replace(" ","");
 
         int startIndex= currentLine.indexOf("#include",0);
         if(startIndex<0)continue;
@@ -73,13 +73,13 @@ QStringList Parser::GetIncludeGaurds(QString content)
     return  result;
 }
 //===============================================================================
-QStringList Parser::GetDefines()
+QStringList Parser::GetDefines(QString content)
 {
     QStringList result;
-    QList<QByteArray> fileLines=_fileContent.split('\n');
+    QStringList fileLines=content.split('\n');
 
     for (int line=0;line<fileLines.count();line++) {
-        QString currentLine=QString::fromLatin1(fileLines[line]).trimmed();
+        QString currentLine=fileLines[line].trimmed();
 
         int idx1= currentLine.indexOf("#define",0);
         if(idx1<0)continue;
@@ -139,10 +139,10 @@ QStringList Parser::GetBraces(QString input)
 }
 
 //===============================================================================
-QStringList Parser::GetLineComments()
+QStringList Parser::GetLineComments(QString content)
 {
     QStringList result;
-    QList<QByteArray> fileLines=_fileContent.split('\n');
+    QStringList fileLines=content.split('\n');
     for (int i=0;i<fileLines.count();i++) {
         int startIndex=fileLines[i].indexOf("//");
         if(startIndex<0)continue;
@@ -154,25 +154,25 @@ QStringList Parser::GetLineComments()
 }
 
 //===============================================================================
-QStringList Parser::GetBlockComments()
+QStringList Parser::GetBlockComments(QString content)
 {
     QStringList result;
     int startInex=-1;
     QString comment="";
-    for (int i=0;i<_fileContent.count()-1;i++)
+    for (int i=0;i<content.count()-1;i++)
     {
 
 
-        if(_fileContent[i]=='/' && _fileContent[i+1]=='*' && startInex<0)
+        if(content[i]=='/' && content[i+1]=='*' && startInex<0)
         {
             startInex=i;
 
 
 
         }
-            if(_fileContent[i]=='*' && _fileContent[i+1]=='/' && startInex>=0 && comment.length()>3)
+        if(content[i]=='*' && content[i+1]=='/' && startInex>=0 && comment.length()>3)
         {
-            comment=comment+_fileContent[i]+_fileContent[i+1];
+            comment=comment+content[i]+content[i+1];
             result.append(comment);
 
 
@@ -180,14 +180,19 @@ QStringList Parser::GetBlockComments()
             comment="";
 
         }
-        if(startInex>=0)comment+=_fileContent[i];
+        if(startInex>=0)comment+=content[i];
 
     }
 
     return  result;
 
 }
+QString Parser::ReplaceEndlineTolinuxFormat(QString content)
+{
+    return   content.replace("\r\n","\n");
 
+
+}
 QString Parser::RemoveEmptyLines(QString content)
 {
     QStringList fileLines=content.split('\n');
@@ -195,7 +200,7 @@ QString Parser::RemoveEmptyLines(QString content)
     foreach(QString line ,fileLines)
     {
         if(line.isEmpty())continue ;
-        result+=line;
+        result+=line.trimmed();
 
 
     }
@@ -211,9 +216,9 @@ CPPClass Parser::GetClassInheritances(QString content)
     if(!content.contains("class "))
         return result;
 
-        content=content.split("class ")[1];
-        content=content.split("{")[0];
-        result.Name=content.split(":")[0].trimmed();
+    content=content.split("class ")[1];
+    content=content.split("{")[0];
+    result.Name=content.split(":")[0].trimmed();
     if(!content.contains(":"))
     {
         return  result;
@@ -222,83 +227,80 @@ CPPClass Parser::GetClassInheritances(QString content)
 
     QString inheritances=content.split(":")[1];
 
-        foreach(QString item, inheritances.split(","))
+    foreach(QString item, inheritances.split(","))
+    {
+        if(item.contains("public "))
         {
-            if(item.contains("public "))
-            {
-                result.PulicParents.append(item.split("public ")[1].trimmed());
-            }
-            if(item.contains("private "))
-            {
-                result.PrivateParents.append(item.split("private ")[1].trimmed());
-            }
-            if(item.contains("protected "))
-            {
-
-                result.ProtectedParents.append(item.split("protected ")[1].trimmed());
-            }
-            if(!item.contains("public ") && !item.contains("protcted ") && !item.contains("private "))
-            {
-
-                 result.PrivateParents.append(item.trimmed());
-            }
+            result.PulicParents.append(item.split("public ")[1].trimmed());
         }
+        if(item.contains("private "))
+        {
+            result.PrivateParents.append(item.split("private ")[1].trimmed());
+        }
+        if(item.contains("protected "))
+        {
+
+            result.ProtectedParents.append(item.split("protected ")[1].trimmed());
+        }
+        if(!item.contains("public ") && !item.contains("protcted ") && !item.contains("private "))
+        {
+
+            result.PrivateParents.append(item.trimmed());
+        }
+    }
 
 
 
     return result;
 }
 //===============================================================================
+QStringList Parser::GetClassesFromText(QString content)
+{
+    QStringList result;
+    QList<QPoint> parentBraces=GetParentBraces(content);
+    if(parentBraces.count()<1)
+    {
 
- QList <CPPClass> Parser::GetClassSignature(QString content)
+        return result;
+
+    }
+    QString line=content.mid(0,parentBraces[0].x());
+    if(line.contains("class"))
+    {
+        result.append(line.mid(line.lastIndexOf("class ")));
+    }
+
+
+    for(int i=0;i<parentBraces.count()-1;i++){
+        QString   line=content.mid(parentBraces[i].y(),parentBraces[1+i].x());
+        if(line.contains("class"))
+        {
+            result.append(line.mid(line.lastIndexOf("class ")));
+        }
+    }
+
+
+    return  result;
+
+}
+QList <CPPClass> Parser::GetClassSignature(QString content)
 {
 
     CPPClass result;
-     QList <CPPClass> resultList;
+    QList <CPPClass> resultList;
 
     if(content.isNull())return  resultList;
     if(content.isEmpty())return  resultList;
-
-
-
-     QList<QPoint> parentBraces=GetParentBraces(content);
-
-
-     if(parentBraces.count()<1)
-     {
-         CPPClass signatureResult=GetClassInheritances(content);
-         result.Name=signatureResult.Name;
-         result.PulicParents=signatureResult.PulicParents;
-         result.PrivateParents=signatureResult.PrivateParents;
-         result.ProtectedParents=signatureResult.ProtectedParents;
-         resultList.append(result);
-         return resultList;
-     }
-
-         CPPClass signatureResult=GetClassInheritances(content.mid(0,parentBraces[0].y()));
-         result.Name=signatureResult.Name;
-         result.PulicParents=signatureResult.PulicParents;
-         result.PrivateParents=signatureResult.PrivateParents;
-         result.ProtectedParents=signatureResult.ProtectedParents;
-         resultList.append(result);
-
-     for(int i=1;i< parentBraces.count() ;i++)
-     {
-
-         CPPClass signatureResult=GetClassInheritances(content.mid(parentBraces[i-1].y(),parentBraces[i].x()));
-         result.Name=signatureResult.Name;
-         result.PulicParents=signatureResult.PulicParents;
-         result.PrivateParents=signatureResult.PrivateParents;
-         result.ProtectedParents=signatureResult.ProtectedParents;
-         resultList.append(result);
-
-     }
-
-
-
-
-
-
+    QStringList classes= GetClassesFromText(content);
+    foreach(QString temp ,classes)
+    {
+        CPPClass signatureResult=GetClassInheritances(temp);
+        result.Name=signatureResult.Name;
+        result.PulicParents=signatureResult.PulicParents;
+        result.PrivateParents=signatureResult.PrivateParents;
+        result.ProtectedParents=signatureResult.ProtectedParents;
+        resultList.append(result);
+    }
     return resultList;
 }
 //===============================================================================
@@ -332,19 +334,26 @@ QList<CPPClass> Parser::GetAllClasses()
     if(_fileContent.isEmpty())return result;
     text=_fileContent;
 
-    QStringList bcomments= GetBlockComments();
+    text=ReplaceEndlineTolinuxFormat(text);
+
+    //    QFile out("out.txt");
+    //    out.open(QFile::ReadWrite);
+    //    out.write(text.toLatin1());
+    //    out.close();
+
+    QStringList bcomments= GetBlockComments(text);
 
     foreach (QString bcomment, bcomments) {
         text=text.replace(bcomment,"");
 
     }
 
-    QStringList comments= GetLineComments();
+    QStringList comments= GetLineComments(text);
     foreach (QString commnet, comments) {
         text=text.replace(commnet,"");
     }
 
-    QStringList Includes= GetIncludes();
+    QStringList Includes= GetIncludes(text);
 
     foreach (QString include, Includes) {
         text=text.replace(include,"");
@@ -355,22 +364,19 @@ QList<CPPClass> Parser::GetAllClasses()
     {
         text=text.replace(gaurd,"");
     }
-    QStringList defines= GetDefines();
+    QStringList defines= GetDefines(text);
     foreach (QString define, defines)
     {
 
         text=text.replace(define,"");
     }
     text=RemoveEmptyLines(text);
-QFile out("out.txt");
-out.open(QFile::ReadWrite);
-out.write(text.toLatin1());
-out.close();
 
-//qDebug()<<"==========================="<<text;
-     QList<CPPClass> cs= GetClassSignature(text);
 
-     return  cs;
+    //qDebug()<<"==========================="<<text;
+    QList<CPPClass> cs= GetClassSignature(text);
+
+    return  cs;
 }
 //===============================================================================
 QStringList Parser::GetFunctionNames()
@@ -382,17 +388,17 @@ QStringList Parser::GetFunctionNames()
     if(_fileContent.isEmpty())return result;
     text=_fileContent;
 
-    QStringList bcomments= GetBlockComments();
+    QStringList bcomments= GetBlockComments(text);
     foreach (QString bcomment, bcomments) {
         text=text.replace(bcomment,"");
     }
 
-    QStringList comments= GetLineComments();
+    QStringList comments= GetLineComments(text);
     foreach (QString commnet, comments) {
         text=text.replace(commnet,"");
     }
 
-    QStringList Includes= GetIncludes();
+    QStringList Includes= GetIncludes(text);
     foreach (QString include, Includes) {
         text=text.replace(include,"");
     }

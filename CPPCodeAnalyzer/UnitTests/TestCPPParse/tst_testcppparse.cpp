@@ -81,7 +81,12 @@ QStringList TestCPPParse::GetTestFunctionResultsFromFile(QString fileName)
     resultFile.open(QFile::ReadOnly);
     QByteArray content=resultFile.readAll();
     resultFile.close();
-    return  QString::fromLatin1(content).split('\n');
+    QStringList temp= QString::fromLatin1(content).split('\n');
+    foreach(QString t,temp)
+    {
+        result.append(t.trimmed());
+    }
+    return result;
 }
 
 //======================================================================
@@ -103,7 +108,7 @@ void TestCPPParse::test_MainAndFunction()
     parser.SetFileName("../../../TestModels/MainAndOneFunction.cpp");
     QStringList preDefinedResults=GetTestFunctionResultsFromFile("../../../TestModels/MainAndOneFunction.cpp.res");
     QStringList testResults=parser.GetFunctionNames();
-    qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0);
+    qDebug()<<"res="<<testResults.at(0)<<" ans="<<preDefinedResults.at(0).trimmed();
     QVERIFY(preDefinedResults==testResults);
 }
 
@@ -111,36 +116,29 @@ void TestCPPParse::test_CanCheckClass()
 {
 
     Parser parser;
-//    QList<CPPClass> cs=parser.GetAllClasses();
+    QList<CPPClass> cs=parser.GetAllClasses();
 
 
-//    parser.SetFileName("../../../TestModels/SimpleClass.cpp");
-//    cs=parser.GetAllClasses();
-//    QVERIFY(cs[0].Name=="UI");
+    parser.SetFileName("../../../TestModels/SimpleClass.cpp");
+    cs=parser.GetAllClasses();
+    QVERIFY(cs[0].Name=="UI");
 
-//        parser.SetFileName("../../../TestModels/2classes.cpp");
-//        cs=parser.GetAllClasses();
-//        QVERIFY(cs[0].Name=="UI");
-//        QVERIFY(cs[1].Name=="UI2");
-//        parser.SetFileName("../../../TestModels/realclass1.h");
-//        cs=parser.GetAllClasses();
-//        QVERIFY2(cs[0].Name=="ObjectDetection",cs[0].Name.toStdString().c_str());
-//        QVERIFY2(cs[0].PulicParents[0]=="QObject",cs[0].PulicParents[0].toStdString().c_str());
-//        QVERIFY2(cs[0].PulicParents[1]=="QRunnable",cs[0].PulicParents[1].toStdString().c_str());
-
-
-//        parser.SetFileName("../../../TestModels/InterfaceClass.h");
-//        cs=parser.GetAllClasses();
-//        qDebug()<<"==========================================================>"<<cs[0].Name;
-//        QVERIFY2(cs[0].Name=="ClassifyResult",cs[0].Name.toStdString().c_str());
-//        QVERIFY2(cs[1].Name=="Classifier",cs[1].Name.toStdString().c_str());
+    parser.SetFileName("../../../TestModels/2classes.cpp");
+    cs=parser.GetAllClasses();
+    QVERIFY(cs[0].Name=="UI");
+    QVERIFY(cs[1].Name=="UI2");
+    parser.SetFileName("../../../TestModels/realclass1.h");
+    cs=parser.GetAllClasses();
+    QVERIFY2(cs[0].Name=="ObjectDetection",cs[0].Name.toStdString().c_str());
+    QVERIFY2(cs[0].PulicParents[0]=="QObject",cs[0].PulicParents[0].toStdString().c_str());
+    QVERIFY2(cs[0].PulicParents[1]=="QRunnable",cs[0].PulicParents[1].toStdString().c_str());
 
 
-        parser.SetFileName("../../../TestModels/banner.h");
-         QList<CPPClass> cs=parser.GetAllClasses();
-//        qDebug()<<"==========================================================>"<<cs[0].Name;
-//        QVERIFY2(cs[0].Name=="ClassifyResult",cs[0].Name.toStdString().c_str());
-//        QVERIFY2(cs[1].Name=="Classifier",cs[1].Name.toStdString().c_str());
+    parser.SetFileName("../../../TestModels/InterfaceClass.h");
+    cs=parser.GetAllClasses();
+    qDebug()<<"==========================================================>"<<cs[0].Name;
+    QVERIFY2(cs[0].Name=="ClassifyResult",cs[0].Name.toStdString().c_str());
+    QVERIFY2(cs[1].Name=="Classifier",cs[1].Name.toStdString().c_str());
 }
 
 
@@ -238,8 +236,8 @@ void TestCPPParse::test_ClassSignature()
     QList <CPPClass> result= parser.GetClassSignature("class test{};");
     QVERIFY2(result[0].Name=="test","simplest class extract error");
 
-    result= parser.GetClassSignature("class test");
-    QVERIFY2(result[0].Name=="test",("simplest class extract error"+result[0].Name).toStdString().c_str());
+//    result= parser.GetClassSignature("class test");
+//    QVERIFY2(result[0].Name=="test",("simplest class extract error"+result[0].Name).toStdString().c_str());
 
     result= parser.GetClassSignature("class UI : public QObject{};");
     QVERIFY2(result[0].Name=="UI","class with public inheritance extract error");
@@ -262,8 +260,11 @@ void TestCPPParse::test_ClassSignature()
     QVERIFY2(result[0].PrivateParents[0]=="tree","class with public and private and protected inheritance extract error");
     QVERIFY2(result[0].PrivateParents[1]=="calc","class with public and private and protected inheritance extract error");
 
+    result= parser.GetClassSignature("class UI;");
+    QVERIFY2(result.count()==0,"it is instance not class definition");
 
-
+    result= parser.GetClassSignature("class UI;class test{}");
+    QVERIFY2(result[0].Name=="test","UI is class instance");
 
 }
 

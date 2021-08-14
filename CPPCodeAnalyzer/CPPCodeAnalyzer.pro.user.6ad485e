@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2021-08-15T01:24:33. -->
+<!-- Written by QtCreator 4.11.0, 2021-08-09T18:09:57. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{03f52bf5-74c1-4c5b-94a0-137988c92de1}</value>
+  <value type="QByteArray">{6ad485e8-9c87-40ad-b9c4-e2dd419f36f7}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -55,23 +55,21 @@
  <data>
   <variable>ProjectExplorer.Project.PluginSettings</variable>
   <valuemap type="QVariantMap">
-   <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
-    <value type="QString">-fno-delayed-template-parsing</value>
-   </valuelist>
+   <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>
    <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
   </valuemap>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.14.1 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.14.1 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5141.win64_mingw73_kit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.14.1 GCC 64bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.14.1 GCC 64bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5141.gcc_64_kit</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">1</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -119,7 +117,7 @@
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">2</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -167,7 +165,7 @@
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">0</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -287,8 +285,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser/CPPParser.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser/CPPParser.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser/CPPParser.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/CPPParser/CPPParser.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -300,7 +298,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseTerminal">false</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/CPPParser</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/CPPParser</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -362,8 +360,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestCPPParse/TestCPPParse.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestCPPParse/TestCPPParse.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestCPPParse/TestCPPParse.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestCPPParse/TestCPPParse.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -372,9 +370,9 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
-    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">false</value>
+    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/UnitTests/TestCPPParse</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/UnitTests/TestCPPParse</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.2">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -436,8 +434,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestPairs/TestPairs.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestPairs/TestPairs.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestPairs/TestPairs.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestPairs/TestPairs.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -448,7 +446,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/UnitTests/TestPairs</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/UnitTests/TestPairs</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.3">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -510,8 +508,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestTreePoints/TestTreePoints.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/AIS/Projects/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestTreePoints/TestTreePoints.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestTreePoints/TestTreePoints.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/amin/CPPCodeAnalyzer/CPPCodeAnalyzer/UnitTests/TestTreePoints/TestTreePoints.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -522,7 +520,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/AIS/Projects/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/UnitTests/TestTreePoints</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/amin/CPPCodeAnalyzer/build-CPPCodeAnalyzer-Desktop_Qt_5_14_1_GCC_64bit-Debug/UnitTests/TestTreePoints</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">4</value>
   </valuemap>
